@@ -1,0 +1,14 @@
+<div id="ol-map" class="map-container">
+</div>
+
+<!--ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen" >
+    <div class="popup-estacion" id="popup-estacion">
+        {{ popupEstacion }}      
+    </div>  
+</ng-template-->
+
+<div class="ol-popup" #popup>
+    <a href="#" id="popup-closer" class="ol-popup-closer" (click)="cerrarPopup()"></a>
+      <div id="popup-content" [innerHTML]="contenidoPopupContent">
+      </div> 
+</div>

@@ -1,0 +1,32 @@
+mat-grid-list{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+mat-grid-tile {
+  background: white;  
+  padding: 0px;
+  margin: 0px;
+  border : 3px solid #f3f7fa;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+.titulo{
+    padding-top: 5px;
+    padding-bottom: 0px;
+    text-align: center;
+    background: #FAFAFA;
+}
+
+.cuado_indicadores{
+    padding: 5px;
+    margin: 5px;
+    border: 0px;
+}
+
+table{
+    width: 90%;
+}
