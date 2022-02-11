@@ -1,0 +1,86 @@
+<mat-toolbar style="background:#066EC8;color: white;">
+    REPORTES
+</mat-toolbar>
+
+<form [formGroup]="form" (ngSubmit)="buscar()">
+<mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile>
+        <mat-form-field appearance="legacy" style="display: inline-block;">
+            <mat-label>Estación</mat-label>
+            <mat-select formControlName="idEstacion">
+                <mat-option *ngFor="let estacion of estaciones" [value]="estacion.id">
+                    {{estacion.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-form-field appearance="legacy" style="display: inline-block;"> 
+            <mat-label>Fecha inicio</mat-label>
+            <input matInput [matDatepicker]="pickerinicio" [max]="maxFecha" placeholder="Escoge una fecha" formControlName="fechaInicioConsulta">
+            <mat-datepicker-toggle matSuffix [for]="pickerinicio"></mat-datepicker-toggle>
+            <mat-datepicker #pickerinicio></mat-datepicker>
+        </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>        
+        <mat-form-field appearance="legacy" style="display: inline-block;">
+            <mat-label>Fecha fin</mat-label>
+            <input matInput [matDatepicker]="pickerfin" [max]="maxFecha" placeholder="Escoge una fecha" formControlName="fechaFinConsulta">
+            <mat-datepicker-toggle matSuffix [for]="pickerfin"></mat-datepicker-toggle>
+            <mat-datepicker #pickerfin></mat-datepicker>
+        </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>  
+        <button mat-raised-button color="primary" type="submit" aria-label="buscar" placeholder="Buscar">
+          <mat-icon>search</mat-icon>
+        </button>
+    </mat-grid-tile>    
+  </mat-grid-list>
+</form>
+
+<button mat-icon-button color="primary" aria-label="Descargar excel" (click)="descargar()" [disabled]="isDisabled">
+  <mat-icon>file_download</mat-icon>
+</button>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort >
+
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> ESTACION </th>
+      <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef> FECHA </th>
+      <td mat-cell *matCellDef="let row"> {{row.fecharegistro | date:'dd-MM-yyyy hh:mm:ss a'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cloro">
+      <th mat-header-cell *matHeaderCellDef> CLORO </th>
+      <td mat-cell *matCellDef="let row"> {{row.cloro}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ph">
+      <th mat-header-cell *matHeaderCellDef> PH </th>
+      <td mat-cell *matCellDef="let row"> {{row.ph}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="temperatura">
+      <th mat-header-cell *matHeaderCellDef> TEMPERATURA </th>
+      <td mat-cell *matCellDef="let row"> {{row.temperatura}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No Existen datos </td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10]" aria-label="Select page of users"></mat-paginator>
+</div>
+
+

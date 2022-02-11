@@ -1,34 +1,9 @@
-<ng-container>
-  <ng-container>
-    <mat-toolbar color="primary" class="example-header">
-      Sistema de medición de calidad de agua
-      <span class="example-spacer"></span>
-      <!--button mat-button>
-        Usuarios
-      </button>
-      <button mat-button>
-        Reportes
-      </button>
-      <button mat-button>
-        Estación
-      </button>
-      <span class="example-spacer"></span>
-      <button-- mat-button>
-        Cerrar sesion
-      </button-->
-    </mat-toolbar>
-    <mat-sidenav-container class="example-container">
-      <mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="options.value.fixed"
-        [fixedTopGap]="options.value.top" [fixedBottomGap]="options.value.bottom">
-        <app-ol-map></app-ol-map>
-      </mat-sidenav>
-      <mat-sidenav-content [formGroup]="options" class="fondo-indicadores">
-        <app-estacion></app-estacion>
-        <button mat-icon-button  aria-label="expande_contrae" class="expand-contract" mat-button (click)="sidenav.toggle()">
-          <mat-icon>
-            <span class="material-icons">chevron_left</span>
-          </mat-icon>
-        </button>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-  </ng-container>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="options.value.fixed"  [fixedTopGap]="options.value.top" [fixedBottomGap]="options.value.bottom">
+    <app-ol-map>
+    </app-ol-map>
+    <div class="example-cuadro-indicadores">
+      <app-indicador></app-indicador>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

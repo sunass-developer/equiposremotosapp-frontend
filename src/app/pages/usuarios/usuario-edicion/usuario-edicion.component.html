@@ -1,0 +1,63 @@
+<form [formGroup]="form" (ngSubmit)="operar()" #frmUsuario="ngForm">
+    <mat-grid-list cols="2" rowHeight="100px">
+        <div [hidden]="true">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="ID" required formControlName="id">
+            </mat-form-field>
+        </div>
+        <mat-grid-tile>
+            <mat-form-field appearance="legacy" style="display: inline-block;width: 90%;">
+                <mat-label>Nombres</mat-label>
+                <input matInput formControlName="nombre" required>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field appearance="legacy" style="display: inline-block;width: 90%">
+                <mat-label>Apellidos</mat-label>
+                <input matInput formControlName="apellido" required>
+            </mat-form-field>
+        </mat-grid-tile>
+    
+        <mat-grid-tile>
+            <mat-form-field appearance="legacy" style="display: inline-block;width: 90%">
+                <mat-label>Correo de Sunass</mat-label>
+                <input matInput formControlName="username" required>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-form-field appearance="legacy" style="display: inline-block;width: 90%">
+                <mat-label>Cargo</mat-label>
+                <input matInput formControlName="cargo" required>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-form-field appearance="legacy" style="display: inline-block;width: 90%">
+                <mat-label>Roles</mat-label>
+                <mat-select multiple [(value)]="rolesSeleccionados" required>
+                    <mat-option *ngFor="let r of roles" [value]="r">{{r.descripcion}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            &nbsp;
+        </mat-grid-tile>
+    
+        <mat-grid-tile>  
+            <button mat-raised-button color="primary" type="submit" aria-label="Agregar" placeholder="Agregar" [disabled]="frmUsuario.invalid">
+              <mat-icon>save</mat-icon>
+              <span>Guardar</span>
+            </button>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <button mat-raised-button color="accent" routerLink='/usuarios' type="button">
+                <mat-icon>close</mat-icon>
+                <span>Cancelar</span>
+            </button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+</form>

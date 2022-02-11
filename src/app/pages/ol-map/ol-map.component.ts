@@ -15,8 +15,6 @@ import VectorLayer from "ol/layer/Vector";
 import {FullScreen, defaults as defaultControls} from 'ol/control';
 import { EstacionService } from './../../_service/estacion.service';
 import Overlay from 'ol/Overlay';
-import { ITS_JUST_ANGULAR } from "@angular/core/src/r3_symbols";
-import { toStringHDMS } from "ol/coordinate";
 
 @Component({
   selector: 'app-ol-map',
@@ -25,7 +23,6 @@ import { toStringHDMS } from "ol/coordinate";
 })
 
 export class OlMapComponent implements OnInit {
-
   
   map: Map;
   projection : Projection;
@@ -36,9 +33,7 @@ export class OlMapComponent implements OnInit {
   overlay : Overlay;  
   contenidoPopupContent : string;
 
-  constructor(private es : EstacionService) {
-     
-  }
+  constructor(private es : EstacionService) {}
 
   ngOnInit(): void {
 
@@ -50,7 +45,8 @@ export class OlMapComponent implements OnInit {
           this.features.push(new Feature({
             geometry : new Point( [ Number(objeto.coordx) , Number(objeto.coordy)]),
             name : objeto.nombre,
-            did : objeto.did
+            did : objeto.did,
+            chip : objeto.chip
           }));
         });
 
@@ -62,14 +58,11 @@ export class OlMapComponent implements OnInit {
             }
           }
         });
-
+        
         this.features.forEach(f=>{
           f.setStyle(new Style({
             image: new Icon({
-              src: 'assets/img/marcador-estacion-celeste.png',
-              anchor: [0.5, 46],
-              anchorXUnits: 'fraction',
-              anchorYUnits: 'pixels',
+              src: 'assets/img/marcador-estacion-celeste.png'
             }),
             text: new Text({
               text: f.values_.name,
@@ -79,7 +72,7 @@ export class OlMapComponent implements OnInit {
               stroke: new Stroke({color: 'white', width: 2.0}),
               font : 'bold 13px serif',
               offsetX	 : 0,
-              offsetY : -50
+              offsetY : -15
             })
           }));
         });
@@ -119,7 +112,7 @@ export class OlMapComponent implements OnInit {
 
           if(feature){
             this.overlay.setPosition(evt.coordinate);
-            this.contenidoPopupContent  = '<strong>Datos de Estacion</strong><br>Did : ' + feature.get('did')  + '<br>Nombre : ' + feature.get('name') + '<br>Descripción : ...';
+            this.contenidoPopupContent  = '<strong>Datos de Estacion</strong><br>Did : ' + feature.get('did')  + '<br>Nombre : ' + feature.get('name') + '<br>Chip : ' + 984545455 + '<br>Descripción : ...' + '<br>Departamento : ...' + '<br>Provincia : ...' + '<br>Distrito : ...'+ '<br>Dirección : ...'+'<hr>' + '<strong>Datos del administrador</strong><br>Descripción : ...'+ '<br>Nombre : ...'+ '<br>Apellido : ...'+ '<br>DNI : ...'+ '<br>Teléfono : ...'+ '<br>Correo : ...';
           } else {
             this.overlay.setPosition(undefined);
             this.contenidoPopupContent  = '';
@@ -131,8 +124,7 @@ export class OlMapComponent implements OnInit {
           const hit = this.map.hasFeatureAtPixel(pixel);
           this.map.getViewport().style.cursor = hit ? 'pointer' : '';
         });
-
-    });   
+    });
   }
 
   cerrarPopup(){

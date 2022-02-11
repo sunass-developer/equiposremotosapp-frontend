@@ -1,8 +1,6 @@
-.example-container {
-  position: absolute;
-  top: 60px;
-  /*bottom: 60px;*/
-  bottom: 0px;
+.example-header {
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
 }
@@ -11,32 +9,10 @@
   flex: 1 1 auto;
 }
 
-.example-cuadro-indicadores{
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-}
-
-.example-sidenav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40%;
-}
-
 .expand-contract{
   position: absolute;
   top:45%;
   left: 0px;;
-}
-
-.example-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 
 .example-footer {
@@ -50,6 +26,33 @@ p {
   font-family: Lato;
 }
 
-ng-container{
+.ng-container{
   background: white;
+}
+
+.example-container {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+}
+.example-cuadro-indicadores{
+  position: absolute;
+  top: 60px;
+  left: 6px;
+  /*width: 65%;*/
+  height: 85%;
+  /*background-color: white;*/
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+.example-sidenav {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }

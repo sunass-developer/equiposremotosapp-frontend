@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EstacionService } from './../../_service/estacion.service';
-import { EstacionIndicador } from './../../_model/estacion/estacionindicador';
+import { EstacionIndicador } from '../../_model/estacionindicador';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-estacion',
@@ -11,11 +12,15 @@ export class EstacionComponent implements OnInit {
 
   conectado : boolean =  false;
   /*private client : Client;*/
-  estacionindicador : EstacionIndicador[];
-  breakpoint : number = 0;
+  estacionindicador1 : EstacionIndicador[] = new Array();
+  estacionindicador2 : EstacionIndicador[] = new Array();
+  estacionindicador3 : EstacionIndicador[] = new Array();
+  mostrarcuadroIndicadores : boolean = false;
   
-  
-  constructor(private estacionService : EstacionService) {
+  constructor(
+    private estacionService : EstacionService,
+    public route  : ActivatedRoute
+  ) {
 
     /*var evtSource = new EventSource("http://localhost:8080/estaciones/indicadores");
 
@@ -27,10 +32,20 @@ export class EstacionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.breakpoint = (window.innerWidth<=700) ? 2 : ((window.innerWidth<=1000) ? 3 : ( (window.innerWidth<=1800) ?4 : ((window.innerWidth<=2500) ? 5 : 6 )));
+    this.estacionService.listarEstacionesIndicadores().subscribe(datos=>{
+      
+      this.estacionindicador1.push(datos[0]);
+      this.estacionindicador1.push(datos[1]);
+      this.estacionindicador1.push(datos[2]);
+      this.estacionindicador1.push(datos[3]);
 
-    this.estacionService.listar().subscribe(datos=>{
-      this.estacionindicador = datos;
+      this.estacionindicador2.push(datos[4]);
+      this.estacionindicador2.push(datos[5]);
+      
+      this.estacionindicador3.push(datos[6]);
+      this.estacionindicador3.push(datos[7]);
+      this.estacionindicador3.push(datos[8]);
+      this.estacionindicador3.push(datos[9]);
     });
 
     /*this.client = new Client();
@@ -52,6 +67,10 @@ export class EstacionComponent implements OnInit {
         
       });
     }*/
+  }
+
+  ocultarCuadroIndicadores(){
+    this.mostrarcuadroIndicadores = !this.mostrarcuadroIndicadores;
   }
 
 }
