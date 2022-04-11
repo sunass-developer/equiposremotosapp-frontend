@@ -5,14 +5,14 @@
             <h2>SISTEMA DE MEJORA DE CALIDAD AGUA(SIMCA)</h2>
             <mat-form-field class="ancho" appearance="legacy">
                 <mat-label>Usuario</mat-label>
-                <input matInput matInput autocomplete="off" id="email" name="email" [(ngModel)]="usuario">
+                <input matInput autocomplete="off" id="email" name="email" [(ngModel)]="usuario">
             </mat-form-field>
             <mat-form-field class="ancho" appearance="legacy">
                 <mat-label>Contraseña</mat-label>
                 <input matInput type="password" matInput autocomplete="off" id="password" name="password" [(ngModel)]="clave">
             </mat-form-field>
             <br>
-            <button class="ancho button" mat-raised-button color="primary" (click)="iniciarSesion()">Ingresar</button>
+            <button class="ancho button boton" mat-raised-button (click)="iniciarSesion()">Ingresar</button>
         </form>
-    </div>    
+    </div>
 </div>

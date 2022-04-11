@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IndicadorService } from 'src/app/_service/indicador.service';
 import { Chart } from 'chart.js';
+import { LoginService } from './../../../_service/login.service';
 
 @Component({
   selector: 'app-indicador-grafico',
@@ -18,7 +19,8 @@ export class IndicadorGraficoComponent implements OnInit {
   constructor(
     private route : ActivatedRoute,
     private router : Router,
-    private indicadorService : IndicadorService
+    private indicadorService : IndicadorService,
+    private loginService : LoginService
   ) { }
 
   ngOnInit(): void {
@@ -79,7 +81,7 @@ export class IndicadorGraficoComponent implements OnInit {
             {
               label: 'Temperatura',
               data: temperatura,
-              borderColor: "#FFC300",
+              borderColor: "yellow",
               fill: false,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -114,7 +116,10 @@ export class IndicadorGraficoComponent implements OnInit {
   }
 
   irEstaciones(){
-    this.router.navigate(['principal']);
+    if(this.loginService.estaLogeado())
+      this.router.navigate(['principal']);
+    else
+      this.router.navigate(['inicio']);
   }
 
 }

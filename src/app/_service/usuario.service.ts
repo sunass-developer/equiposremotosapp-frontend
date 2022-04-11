@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Usuario } from './../_model/usuario';
 import { Subject } from 'rxjs';
+import { UsuarioItemDto } from './../_dto/UsuarioItemDto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class UsuarioService {
 
   usuarioCambio = new Subject<Usuario[]>();
   mensajeCambio = new Subject<string>();
+  tituloCambio = new Subject<string>();
 
   url : string = `${environment.HOST}/usuarios`;
 
@@ -28,13 +30,18 @@ export class UsuarioService {
 
   listar(){
     return this.http.get<Usuario[]>(this.url);
+    //return this.http.get<UsuarioItemDto[]>(this.url);
   }
 
   listarPorId(id : number){
     return this.http.get<Usuario>(`${this.url}/${id}`);
   }
 
-  eliminar(id : number){
+  eliminar(id : number, estado : number){
+    return this.http.delete<number>(`${this.url}/${id}/${estado}`);
+  }
+
+  habilitar(id : number){
     return this.http.delete<number>(`${this.url}/${id}`);
   }
 

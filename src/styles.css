@@ -2,3 +2,34 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.toolbar{
+    background: #066EC8;
+    color: white;
+}
+
+.boton {
+    background: #066EC8;
+    color: white;
+}
+
+.form-boton{
+    text-align : center;
+    width: 100%;
+    display: inline-block;
+}
+
+.form-boton-guardar{
+    background: #066EC8;
+    color: white;
+}
+
+.form-boton-cancelar{
+    color: #066EC8;
+    background: white;
+}
+
+.example-button-row .mat-button-base {
+    margin: 8px 8px 8px 0;
+  }
+

@@ -1,4 +1,5 @@
-<form [formGroup]="form" (ngSubmit)="operar()" #frmUsuario="ngForm">
+<!--<form [formGroup]="form" (ngSubmit)="operar()" #frmUsuario="ngForm">
+    <mat-toolbar>FORMULARIO DE USUARIO</mat-toolbar>
     <mat-grid-list cols="2" rowHeight="100px">
         <div [hidden]="true">
             <mat-form-field class="example-full-width">
@@ -6,58 +7,117 @@
             </mat-form-field>
         </div>
         <mat-grid-tile>
-            <mat-form-field appearance="legacy" style="display: inline-block;width: 90%;">
-                <mat-label>Nombres</mat-label>
-                <input matInput formControlName="nombre" required>
+            <mat-form-field appearance="fill" style="display: inline-block;width: 90%;">
+                <input matInput placeholder="Nombres" formControlName="nombre" required>
+                <mat-error *ngIf="f.nombre.errors?.required">campo obligatorio</mat-error>
+                <mat-error *ngIf="f.nombre.errors?.minlength"></mat-error>
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
             <mat-form-field appearance="legacy" style="display: inline-block;width: 90%">
-                <mat-label>Apellidos</mat-label>
-                <input matInput formControlName="apellido" required>
+                <input matInput placeholder="Apellidos" formControlName="apellido" required>
+                <mat-error *ngIf="f.apellido.errors?.required">campo obligatorio</mat-error>
+                <mat-error *ngIf="f.apellido.errors?.minlength"></mat-error>
             </mat-form-field>
         </mat-grid-tile>
-    
         <mat-grid-tile>
             <mat-form-field appearance="legacy" style="display: inline-block;width: 90%">
-                <mat-label>Correo de Sunass</mat-label>
-                <input matInput formControlName="username" required>
+                <input matInput placeholder="correo" formControlName="correo" required>
+                <mat-error *ngIf="f.correo.errors?.required">Correo</mat-error>
+                <mat-error *ngIf="f.correo.errors?.minlength"></mat-error>
             </mat-form-field>
         </mat-grid-tile>
-
         <mat-grid-tile>
             <mat-form-field appearance="legacy" style="display: inline-block;width: 90%">
-                <mat-label>Cargo</mat-label>
-                <input matInput formControlName="cargo" required>
+                <input matInput placeholder="Cargo" formControlName="cargo" required>
+                <mat-error *ngIf="f.cargo.errors?.required">campo obligatorio</mat-error>
+                <mat-error *ngIf="f.cargo.errors?.minlength"></mat-error>
             </mat-form-field>
         </mat-grid-tile>
-
         <mat-grid-tile>
             <mat-form-field appearance="legacy" style="display: inline-block;width: 90%">
                 <mat-label>Roles</mat-label>
-                <mat-select multiple [(value)]="rolesSeleccionados" required>
-                    <mat-option *ngFor="let r of roles" [value]="r">{{r.descripcion}}</mat-option>
+                <mat-select [(value)]="idRol" formControlName="tipousuario" required>
+                    <mat-option *ngFor="let r of roles" [value]="r.idRol">
+                        {{r.nombre}}
+                    </mat-option>
                 </mat-select>
+                <mat-error *ngIf="f.tipousuario.errors?.required">campo obligarotio</mat-error>
             </mat-form-field>
         </mat-grid-tile>
-
         <mat-grid-tile>
-            &nbsp;
+            <mat-label>&nbsp;</mat-label>
         </mat-grid-tile>
-    
-        <mat-grid-tile>  
-            <button mat-raised-button color="primary" type="submit" aria-label="Agregar" placeholder="Agregar" [disabled]="frmUsuario.invalid">
-              <mat-icon>save</mat-icon>
-              <span>Guardar</span>
-            </button>
-        </mat-grid-tile>
-
-        <mat-grid-tile>
-            <button mat-raised-button color="accent" routerLink='/usuarios' type="button">
-                <mat-icon>close</mat-icon>
+        <mat-grid-tile class="lado-derecho">
+            <button  mat-stroked-button class="boton-cancelar" routerLink='/usuarios' type="button">
                 <span>Cancelar</span>
             </button>
         </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button class="boton" type="submit" aria-label="Agregar" placeholder="Agregar" [disabled]="frmUsuario.invalid">
+                <span>Guardar</span>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>-->
 
-      </mat-grid-list>
+<form [formGroup]="form" (ngSubmit)="operar()" #frmUsuario="ngForm" style="padding: 5px;">
+    <mat-toolbar>FORMULARIO DE USUARIO</mat-toolbar>
+    <div class="contenedor">
+        <div [hidden]="true">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="ID" required formControlName="id">
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <input matInput placeholder="Nombres" formControlName="nombre" required>
+                <mat-error *ngIf="f.nombre.errors?.required">campo obligatorio</mat-error>
+                <mat-error *ngIf="f.nombre.errors?.minlength"></mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <input matInput placeholder="Apellidos" formControlName="apellido" required>
+                <mat-error *ngIf="f.apellido.errors?.required">campo obligatorio</mat-error>
+                <mat-error *ngIf="f.apellido.errors?.minlength"></mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <input matInput placeholder="correo" formControlName="correo" required>
+                <mat-error *ngIf="f.correo.errors?.required">Correo</mat-error>
+                <mat-error *ngIf="f.correo.errors?.minlength"></mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy" >
+                <input matInput placeholder="Cargo" formControlName="cargo" required>
+                <mat-error *ngIf="f.cargo.errors?.required">campo obligatorio</mat-error>
+                <mat-error *ngIf="f.cargo.errors?.minlength"></mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <mat-label>Roles</mat-label>
+                <mat-select [(value)]="idRol" formControlName="tipousuario" required>
+                    <mat-option *ngFor="let r of roles" [value]="r.idRol">
+                        {{r.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="f.tipousuario.errors?.required">campo obligarotio</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-label>&nbsp;</mat-label>
+        </div>
+        <div class="form-boton">
+            <button  mat-stroked-button class="form-boton-cancelar" routerLink='/usuarios' type="button" style="margin: 15px;">
+                <span>Cancelar</span>
+            </button>
+            <button mat-raised-button class="form-boton-guardar" type="submit" aria-label="Agregar" placeholder="Agregar" [disabled]="frmUsuario.invalid" style="margin: 15px;">
+                <span>Guardar</span>
+            </button>
+        </div>
+    </div>
 </form>

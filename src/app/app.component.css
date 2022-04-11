@@ -1,5 +1,3 @@
-  
-
   .example-container {
     display: flex;
     flex-direction: column;
@@ -18,3 +16,7 @@
     flex: 1 1 auto;
   }
   
+  .example-toolbar{
+    background: #066EC8;
+    color: white;
+  }

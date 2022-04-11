@@ -39,14 +39,13 @@ p {
 }
 .example-cuadro-indicadores{
   position: absolute;
-  top: 60px;
-  left: 6px;
-  /*width: 65%;*/
-  height: 85%;
-  /*background-color: white;*/
-  padding: 0;
-  border: 0;
-  margin: 0;
+    top: 60px;
+    left: 6px;
+    height: 85%;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    width: 40%;
 }
 
 .example-sidenav {

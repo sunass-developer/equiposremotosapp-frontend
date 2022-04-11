@@ -9,6 +9,7 @@ export class Usuario {
     apellido : string;
     cargo  : string;
     password : string;
+    correo : string;
     enabled : boolean;
     roles : Rol[];
 }

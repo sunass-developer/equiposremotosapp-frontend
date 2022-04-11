@@ -1,0 +1,71 @@
+<form [formGroup]="form" (ngSubmit)="operar()" #frmReceptorsms="ngForm" style="padding: 5px;">
+    <mat-toolbar>FORMULARIO DE RECEPTORES SMS</mat-toolbar>
+    <div class="contenedor">
+        <div [hidden]="true">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="ID" required formControlName="id">
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <input matInput placeholder="Apellidos" formControlName="apellido" required>
+                <mat-error *ngIf="f.apellido.errors?.required">campo obligatorio</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <input matInput placeholder="Cargo" formControlName="cargo" required>
+                <mat-error *ngIf="f.cargo.errors?.required">campo obligatorio</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <input matInput placeholder="Entidad" formControlName="entidad" required>
+                <mat-error *ngIf="f.entidad.errors?.required">campo obligatorio</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <input matInput placeholder="DNI" formControlName="dni" required>
+                <mat-error *ngIf="f.dni.errors?.required">campo obligatorio</mat-error>
+                <mat-error *ngIf="f.dni.errors?.minlength">debe tener 8 digitos</mat-error>
+                <mat-error *ngIf="f.dni.errors?.maxlength">debe tener 8 digitos</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <input matInput placeholder="Celular" formControlName="celular" required>
+                <mat-error *ngIf="f.celular.errors?.required">campo obligatorio</mat-error>
+                <mat-error *ngIf="f.celular.errors?.pattern">celular incorrecto</mat-error>
+                <mat-error *ngIf="f.celular.errors?.minlength">debe tener 9 digitos</mat-error>
+                <mat-error *ngIf="f.celular.errors?.maxlength">debe tener 9 digitos</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <input matInput placeholder="Correo" formControlName="correo" required>
+                <mat-error *ngIf="f.correo.errors?.required">campo obligatorio</mat-error>
+                <mat-error *ngIf="f.correo.errors?.email">correo incorrecto</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
+                <mat-label>Estación</mat-label>
+                <mat-select formControlName="estacionSeleccionada" [(ngModel)]="estacionSeleccionada" [compareWith]="compararNombres" required>
+                    <mat-option *ngFor="let e of estaciones" [value]="e">
+                        {{e.nombre}}
+                    </mat-option>
+                </mat-select>
+                <small *ngIf="f.estacionSeleccionada.errors?.required"></small>
+            </mat-form-field>
+        </div>
+        <div class="form-boton">
+            <button  mat-stroked-button class="form-boton-cancelar" routerLink='/receptorsms' type="button" style="margin: 15px;">
+                <span>Cancelar</span>
+            </button>
+            <button mat-raised-button class="form-boton-guardar" type="submit" aria-label="Agregar" placeholder="Agregar" [disabled]="frmReceptorsms.invalid" style="margin: 15px;">
+                <span>Guardar</span>
+            </button>
+        </div>
+    </div>
+</form>

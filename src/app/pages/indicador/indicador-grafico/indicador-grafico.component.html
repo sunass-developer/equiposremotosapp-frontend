@@ -1,12 +1,20 @@
-
-<div [hidden]="!chart" class="chart-container" style="position: relative;background: #ffffff; width:35vw">
-    <h3 class="titulo">
-        <strong>Gráfico de la Estación : {{ titulo }}</strong>
-        <button mat-icon-button aria-label="atras" (click)="irEstaciones()">
-            <mat-icon>subdirectory_arrow_left</mat-icon>
-        </button>
-    </h3>
-    <canvas id="canvas">
-        {{ chart }}
-    </canvas>
+<div style="overflow-x: scroll;">
+    <div class="chartWrapper">
+        <div class="area-chart">
+            <div [hidden]="!chart" class="chart-container">
+                <h3 class="titulo">
+                    <strong>Gráfico de la Estación : {{ titulo }}</strong>
+                    <button mat-icon-button aria-label="atras" (click)="irEstaciones()">
+                        <mat-icon>arrow_left</mat-icon>
+                    </button>
+                </h3>
+                <canvas id="canvas">
+                    {{ chart }}
+                </canvas>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+

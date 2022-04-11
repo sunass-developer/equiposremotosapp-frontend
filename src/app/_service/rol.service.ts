@@ -17,4 +17,8 @@ export class RolService {
   listar(){
     return this.http.get<Rol[]>(this.url);
   }
+
+  getById(id : number){
+    return this.http.get<Rol>(`${this.url}/${id}`);
+  }
 }

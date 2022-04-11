@@ -45,6 +45,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import { MatPaginatorImpl } from './mat-paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 
+
+
 @NgModule({
   declarations: [],
   exports : [
@@ -92,7 +94,8 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
     OverlayModule,
     PortalModule,
     ScrollingModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule
   ],
   providers : [
     { provide  : MatPaginatorIntl, useClass : MatPaginatorImpl },

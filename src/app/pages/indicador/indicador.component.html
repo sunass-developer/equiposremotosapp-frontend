@@ -1,16 +1,127 @@
 <router-outlet></router-outlet>
-<button style="left:-5px"  mat-icon-button aria-label="arrow_right" *ngIf="mostrarcuadroIndicadores" (click)="ocultarCuadroIndicadores()">
-  <mat-icon style="color:#066EC8">play_circle</mat-icon>
+<button
+  style="left: -5px;padding-top: 8px;"
+  mat-icon-button
+  aria-label="arrow_right"
+  *ngIf="mostrarcuadroIndicadores"
+  (click)="ocultarCuadroIndicadores()"
+>
+  <mat-icon style="color: #066ec8">arrow_circle_right</mat-icon>
 </button>
+
+<div class="row" style="background: white;margin-top: 15px;margin-left: 3px;" [hidden]="route.children.length!==0" *ngIf="!mostrarcuadroIndicadores">
+  <div> 
+    <h3 class="titulo">
+      <strong>&nbsp;&nbsp;Indicadores por estación</strong>
+    </h3>
+    <button mat-icon-button aria-label="minimize" style="float: right;color:#066EC8" (click)="ocultarCuadroIndicadores()"> 
+      <mat-icon >arrow_left</mat-icon>
+    </button>
+  </div>
+  <div>
+    <span style="font-size: 11px;">
+      &nbsp;&nbsp;&nbsp;Se muestran los indicadores(cloro, ph y temperatura) por cada estación. Cuando el <strong>valor del cloro es menor de 0.5 </strong> se pinta de color rojo caso contrario verde.
+    </span>
+  </div>
+  <div
+    *ngFor="let e of estacionindicador1" 
+    class="col-s-6 col-3 col-l-2" style="padding: 4px; display: inline-block; border-radius: 2px;"
+  >
+        <table class="mat-elevation-z8  border-radio">
+          <tr class="cabecera-tabla">
+            <td colspan="2">
+              <strong>{{ e.nombre }} </strong>
+              <div
+                *ngIf="e.cloro < 0.5"
+                style="
+                  width: 20px;
+                  height: 10px;
+                  background: red;
+                  display: inline-block;
+                "
+              ></div>
+              <div
+                *ngIf="e.cloro >= 0.5"
+                style="
+                  width: 20px;
+                  height: 10px;
+                  background: green;
+                  display: inline-block;
+                "
+              ></div>
+              <button
+                style="display: inline-block"
+                mat-icon-button
+                aria-label="gráfico"
+                placeholder="ver gráfico"
+                [routerLink]="['grafico', e.idestacion]"
+              >
+                <mat-icon>stacked_line_chart</mat-icon>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="texto-plomo">{{ e.fecharegistro }}</label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">Cloro : {{ e.cloro }}</td>
+          </tr>
+          <tr>
+            <td colspan="2">Ph : {{ e.ph }}</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label>Temperatura : {{ e.temperatura }}</label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label class="texto-plomo">Caudal : {{ e.caudal }}</label>
+              <hr
+                style="
+                  height: 0.5px;
+                  border-width: 0;
+                  background-color: #e5e5e5;
+                "
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label class="texto-plomo">{{ e.fecharegistrocorriente }}</label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label class="texto-plomo"
+                >Corriente DC : {{ e.corrientedc }}</label
+              >
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label class="texto-plomo"
+                >Corriente AC : {{ e.corrienteac }}</label
+              >
+            </td>
+          </tr>
+        </table>
+  </div>
+</div>
+<!--
 <div class="cuadro_indicadores" [hidden]="route.children.length!==0" *ngIf="!mostrarcuadroIndicadores">
     <div> 
-      <h3 class="titulo"><strong>Indicadores por estación</strong> </h3>
+      <h3 class="titulo"><strong>&nbsp;&nbsp;Indicadores por estación</strong></h3>
       <button mat-icon-button aria-label="minimize" style="float: right;color:#066EC8" (click)="ocultarCuadroIndicadores()"> 
         <mat-icon >arrow_left</mat-icon>
       </button>
     </div>
     <div>
-      <span style="font-size: 10px;">Se muestran los indicadores(cloro, ph y temperatura) por cada estación. Cuando el <strong>valor del cloro es menor de 0.5 </strong> se pinta de color rojo caso contrario verde.</span>
+      <span style="font-size: 10px;">
+        &nbsp;&nbsp;&nbsp;Se muestran los indicadores(cloro, ph y temperatura) por cada estación. Cuando el <strong>valor del cloro es menor de 0.5 </strong> se pinta de color rojo caso contrario verde.
+      </span>
     </div>
     <mat-grid-list [cols]="4" rowHeight="280px">
       <mat-grid-tile *ngFor= "let e of estacionindicador1">
@@ -21,50 +132,36 @@
               <div *ngIf="e.cloro<0.5" style="width: 20px;height:10px;background: red; display:inline-block; "></div>
               <div *ngIf="e.cloro>=0.5" style="width: 20px;height:10px;background: green; display: inline-block;"></div>
               <button style="display: inline-block;" mat-icon-button aria-label="gráfico" placeholder="ver gráfico" [routerLink]="['grafico',e.idestacion]" >
-                <mat-icon>show_chart</mat-icon>
+                <mat-icon>stacked_line_chart</mat-icon>
               </button>
             </td>
           </tr>
           <tr>
-            <td>
-              <label class="texto-plomo">{{e.fecharegistro}}</label>
-            </td>
+            <td><label class="texto-plomo">{{e.fecharegistro}}</label></td>
           </tr>
           <tr>
-            <td colspan="2">
-              Cloro : {{e.cloro}}
-            </td>
+            <td colspan="2">Cloro : {{e.cloro}}</td>
           </tr>
           <tr>
-            <td colspan="2">
-              Ph : {{e.ph}}
-            </td>
+            <td colspan="2">Ph : {{e.ph}}</td>
           </tr>
           <tr>
-            <td colspan="2">
-              <label>Temperatura : {{e.temperatura}}</label>
-            </td>
+            <td colspan="2"><label>Temperatura : {{e.temperatura}}</label></td>
           </tr>
           <tr>
             <td colspan="2">
               <label class="texto-plomo">Caudal : {{e.caudal}}</label>
               <hr style="height:0.5px;border-width:0;background-color:#E5E5E5;">
             </td>
-          </tr>        
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">{{e.fecharegistrocorriente}}</label>
-            </td>
-          </tr>        
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">Corriente DC : {{e.corrientedc}}</label>
-            </td>
           </tr>
           <tr>
-            <td colspan="2">
-            <label class="texto-plomo">Corriente AC : {{e.corrienteac}}</label>
-            </td>
+            <td colspan="2"><label class="texto-plomo">{{e.fecharegistrocorriente}}</label></td>
+          </tr>
+          <tr>
+            <td colspan="2"><label class="texto-plomo">Corriente DC : {{e.corrientedc}}</label></td>
+          </tr>
+          <tr>
+            <td colspan="2"><label class="texto-plomo">Corriente AC : {{e.corrienteac}}</label></td>
           </tr>
         </table>
       </mat-grid-tile>
@@ -79,7 +176,7 @@
               <div *ngIf="e.cloro<0.5" style="width: 20px;height:10px;background: red;display:inline-block;"></div>
               <div *ngIf="e.cloro>=0.5" style="width: 20px;height:10px;background: green;display:inline-block;"></div>
               <button style="display:inline-block;" mat-icon-button aria-label="gráfico" placeholder="ver gráfico" [routerLink]="['grafico',e.idestacion]" >
-                <mat-icon>show_chart</mat-icon>
+                <mat-icon>stacked_line_chart</mat-icon>
               </button> 
             </td>
           </tr>
@@ -113,7 +210,7 @@
             <td colspan="2">
               <label class="texto-plomo">{{e.fecharegistrocorriente}}</label>
             </td>
-          </tr>        
+          </tr>
           <tr>
             <td colspan="2">
               <label class="texto-plomo">Corriente DC : {{e.corrientedc}}</label>
@@ -137,7 +234,7 @@
               <div *ngIf="e.cloro<0.5" style="width: 20px;height:10px;background: red;display:inline-block;"></div>
               <div *ngIf="e.cloro>=0.5" style="width: 20px;height:10px;background: green;display:inline-block;"></div>
               <button style="display:inline-block;" mat-icon-button aria-label="gráfico" placeholder="ver gráfico" [routerLink]="['grafico',e.idestacion]" >
-                <mat-icon>show_chart</mat-icon>
+                <mat-icon>stacked_line_chart</mat-icon>
               </button>
             </td>
           </tr>
@@ -169,12 +266,72 @@
               <label class="texto-plomo">Caudal : {{e.caudal}}</label>
               <hr style="height:0.5px;border-width:0;background-color:#E5E5E5;">
             </td>
-          </tr>        
+          </tr>
           <tr>
             <td colspan="2">
               <label class="texto-plomo">{{e.fecharegistrocorriente}}</label>
             </td>
-          </tr>        
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label class="texto-plomo">Corriente DC : {{e.corrientedc}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+            <label class="texto-plomo">Corriente AC : {{e.corrienteac}}</label>
+            </td>
+          </tr>
+        </table>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list [cols]="4" rowHeight="280px" *ngIf="mostrarCuartoCuadroIndicadores">
+      <mat-grid-tile *ngFor= "let e of estacionindicador4">
+        <table class="mat-elevation-z8 border-radio">
+          <tr class="cabecera-tabla">
+            <td colspan="2"  class="border-radio">
+              <strong>{{e.nombre}} </strong>
+              <div *ngIf="e.cloro<0.5" style="width: 20px;height:10px;background: red;display:inline-block;"></div>
+              <div *ngIf="e.cloro>=0.5" style="width: 20px;height:10px;background: green;display:inline-block;"></div>
+              <button style="display:inline-block;" mat-icon-button aria-label="gráfico" placeholder="ver gráfico" [routerLink]="['grafico',e.idestacion]" >
+                <mat-icon>stacked_line_chart</mat-icon>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label class="texto-plomo">{{e.fecharegistro}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Cloro : {{e.cloro}}
+            </td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Ph : {{e.ph}}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label>Temperatura : {{e.temperatura}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label class="texto-plomo">Caudal : {{e.caudal}}</label>
+              <hr style="height:0.5px;border-width:0;background-color:#E5E5E5;">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label class="texto-plomo">{{e.fecharegistrocorriente}}</label>
+            </td>
+          </tr>
           <tr>
             <td colspan="2">
               <label class="texto-plomo">Corriente DC : {{e.corrientedc}}</label>
@@ -189,3 +346,4 @@
       </mat-grid-tile>
     </mat-grid-list>
 </div>
+-->

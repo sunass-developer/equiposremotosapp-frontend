@@ -1,1 +1,117 @@
-<img src="assets/img/pagina-en-construccion.png" style="margin-left: 600px;margin-top: 100px;">
+<router-outlet></router-outlet>
+<div [hidden]="route.children.length !== 0">
+  <mat-toolbar>LISTADO DE RECEPTORES SMS</mat-toolbar>
+  <div class="example-button-row">
+    <button
+      mat-raised-button
+      class="boton"
+      type="button"
+      style="float: right; margin-right: 20px; margin-top: 10px"
+      (click)="irReceptorsmsNuevo()"
+    >
+      <mat-icon>add_circle</mat-icon>
+      Agregar receptor sms
+    </button>
+  </div>
+  <div style="width: 100%; overflow-x: scroll;">
+    <div class="example-container mat-elevation-z8">
+        <div class="example-header">
+          <mat-form-field>
+            <input
+              matInput
+              #input
+              (keyup)="filtrar($event)"
+              placeholder="Buscar receptor sms"
+            />
+          </mat-form-field>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              NOMBRE
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.nombre }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="apellido">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              APELLIDO
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.apellido }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="cargo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              CARGO
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.cargo }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="entidad">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              ENTIDAD
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.entidad }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dni">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              DNI
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.dni }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="celular">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              CELULAR
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.celular }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="correo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              CORREO
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.correo }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="estado">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              ESTADO
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <div *ngIf="row.estado">Habilitado</div>
+              <div *ngIf="!row.estado">Inhabilitado</div>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-button color="primary" [routerLink]="['edicion', row.id]">
+                <mat-icon>mode_edit</mat-icon>
+              </button>
+              <div *ngIf="row.estado">
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="eliminar(row, false)"
+                  title="Inhabilitar"
+                >
+                  <mat-icon>toggle_on</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="!row.estado">
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="eliminar(row, true)"
+                  title="Habilitar"
+                >
+                  <mat-icon>toggle_off</mat-icon>
+                </button>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="9">No existen registros</td>
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      </div>
+  </div>  
+</div>

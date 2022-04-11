@@ -1,0 +1,50 @@
+
+.example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+
+.lado-derecho {
+  justify-content: right;
+}
+
+.contenedor {
+  width: 100%;
+}
+
+mat-form-field{
+  width: 100%;
+}
+
+.col-2 {
+  padding-top: 4px;
+  width: 50%;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 600px) {
+  /* For tablets: */
+  .col-1 {
+    padding-top: 5px;
+    width: 100%;
+    display: inline-block;
+  }
+}
+@media only screen and (min-width: 601px)  and (max-width: 1200px) {
+  /* For desktop: */
+  .col-2 {
+    padding-top: 5px;
+    width: 50%;
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1201px) {
+  /* For desktop: */
+  .col-3 {
+    padding-top: 5px;
+    width: 30%;
+    display: inline-block;
+  }
+}

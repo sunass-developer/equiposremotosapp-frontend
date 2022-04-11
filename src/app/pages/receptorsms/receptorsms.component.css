@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+@media only screen and (min-width: 1501px) {
+  /* For tablets: */
+  .example-container {
+      background:white;
+      width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  /* For tablets: */
+  .example-container {
+      width: 1500px;
+      margin-top: 15px;
+      margin-left: 4px;
+      background: white;
+  }
+}

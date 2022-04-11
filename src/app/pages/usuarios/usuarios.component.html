@@ -1,67 +1,109 @@
-<mat-toolbar>Usuarios</mat-toolbar>
-
 <router-outlet></router-outlet>
-
 <div [hidden]="route.children.length !== 0">
-
-  <div class="example-container mat-elevation-z8">
-
-    <div class="example-header">
-      <mat-form-field>
-        <input matInput (keyup)="filtrar($event)" placeholder="Buscar usuario">
-      </mat-form-field>
-    </div>
-  
-    <mat-table [dataSource]="dataSource" matSort>
-  
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.idUsuario}} </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="nombre">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.nombre}} </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="apellido">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.apellido}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="username">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Correo </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.username}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="cargo">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.cargo}} </mat-cell>
-      </ng-container>
-
-  
-      <ng-container matColumnDef="acciones">
-        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <button mat-button color="primary" [routerLink]="['edicion', row.idUsuario]"><mat-icon>mode_edit</mat-icon></button>
-          <button mat-button color="accent" (click)="eliminar(row)"><mat-icon>delete</mat-icon></button>
-        </mat-cell>
-      </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;">
-      </mat-row>
-    </mat-table>
-  
-      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+  <mat-toolbar>LISTADO DE USUARIOS</mat-toolbar>
+  <div class="example-button-row">
+    <button
+      mat-raised-button
+      class="boton"
+      type="button"
+      style="float: right; margin-right: 20px; margin-top: 10px"
+      routerLink="/usuarios/nuevo"
+    >
+      <mat-icon>add_circle</mat-icon>
+      Agregar Usuarios
+    </button>
   </div>
-
-  <button mat-fab color="accent" style="float: right; margin-right: 20px" routerLink='/usuarios/nuevo'>
-    <mat-icon>add_circle</mat-icon>
-  </button>  
-
+  <div style="width: 100%; overflow-x: scroll">
+    <div class="example-container mat-elevation-z8">
+      <div class="example-header">
+        <mat-form-field>
+          <input
+            matInput
+            (keyup)="filtrar($event)"
+            placeholder="Buscar usuario"
+          />
+        </mat-form-field>
+      </div>
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            NOMBRE
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.nombre }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="apellido">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            APELLIDO
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.apellido }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="username">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            USUARIO
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.username }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="estado">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            ESTADO
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <div *ngIf="row.enabled">Habilitado</div>
+            <div *ngIf="!row.enabled">Inhabilitado</div>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cargo">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            CARGO
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.cargo }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="rol">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            ROL
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <div *ngFor="let rol of row.roles">
+              {{ rol.nombre }}
+            </div>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button
+              mat-button
+              color="primary"
+              [routerLink]="['edicion', row.idUsuario]"
+            >
+              <mat-icon>mode_edit</mat-icon>
+            </button>
+            <div *ngIf="row.enabled">
+              <button
+                mat-button
+                color="primary"
+                (click)="eliminar(row, 0)"
+                title="Inhabilitar"
+              >
+                <mat-icon>toggle_on</mat-icon>
+              </button>
+            </div>
+            <div *ngIf="!row.enabled">
+              <button
+                mat-button
+                color="primary"
+                (click)="eliminar(row, 1)"
+                title="Habilitar"
+              >
+                <mat-icon>toggle_off</mat-icon>
+              </button>
+            </div>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
 </div>
-
-
-  
-  

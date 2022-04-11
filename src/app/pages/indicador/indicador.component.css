@@ -1,29 +1,6 @@
-mat-grid-list{
-    padding: 0px;
-    margin: 0px;
-    border: 0px;
-}
-
-/*mat-grid-tile {
-  background: white;  
-  padding: 0px;
-  margin: 0px;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  height: 80px;
-}*/
-
-.mat-grid-tile-content{
-    height: 80px;
-}
-
 .titulo{
-    /*padding-top: 5px;*/
-    /*padding-bottom: 0px;*/
     text-align: left;
     color: #066EC8;
-    /*border-bottom: 1px solid #066EC8;*/
     display: inline-block;
 }
 
@@ -31,25 +8,37 @@ mat-grid-list{
     background-color: #B6E1F3;
 }
 
-.border-radio{
-    border-radius:3px;
-}
-
-.cuadro_indicadores{
-    border: 4px;
-    /*width: 100%;*/
-    height: 95%;
-    overflow: auto;
-    background: white;
-    border-radius:5px;
-    /*background: white;*/
-}
-
 table{
-    width: 90%;
+    width: 100%;
+    height: 250px;
 }
-
 .texto-plomo{
     font-size: 11px;
     color: #ADA9A9;
+}
+
+.row {
+    /*content: "";*/
+    height: 82vh;
+    overflow-y: scroll; 
+    background: white;
+  }
+
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .col-s-6 {width: 45%;}
+}
+@media only screen and (min-width: 1100px) {
+  /* For desktop: */
+  .col-3 {width: 23%;}
+}
+
+@media only screen and (min-width: 2700px) {
+  /* For desktop: */
+  .col-l-2 {width: 15%;}
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -22,21 +22,17 @@ export class GuardService implements CanActivate{
 
     //1 verificar si esta logeado
     let rpta = this.loginService.estaLogeado();
-
     if(!rpta){
       this.loginService.cerrarSesion();
       return false;
-
     } else{
       //2 verificar si el token no esta expirado
       const helper = new JwtHelperService();
       let token = sessionStorage.getItem(environment.TOKEN_NAME);
-
-      if(!helper.isTokenExpired(token?.toString())){
+      if(!helper.isTokenExpired(token)){
         //3 verificar si tienes el rol necesario para acceder a esa pagina
         let url = state.url; // url que el usuario tienne intencion de navegar en este momento
-        const decodeToken = helper.decodeToken(token?.toString());
-
+        const decodeToken = helper.decodeToken(token);
         //nunca en un guard hacer un subscribe
         return this.menuService.listarPorUsuario(decodeToken.user_name).pipe(map((data : Menu[] )=>{
           this.menuService.setMenuCambio(data);
@@ -55,7 +51,6 @@ export class GuardService implements CanActivate{
           }
         }));
       } else {
-        //console.log("else");
         this.loginService.cerrarSesion();
         return false;
       }

@@ -10,6 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { UsuarioItemDto } from './../../_dto/UsuarioItemDto';
 
 @Component({
   selector: 'app-usuarios',
@@ -18,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UsuariosComponent implements OnInit {
 
-  displayedColumns = ['id', 'nombre', 'apellido', 'username','cargo','acciones'];
+  displayedColumns = ['nombre', 'apellido', 'username','cargo','rol','estado','acciones'];
   dataSource: MatTableDataSource<Usuario>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -30,45 +31,39 @@ export class UsuariosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.usuarioService.usuarioCambio.subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-
     this.usuarioService.mensajeCambio.subscribe(data => {
       this.snackBar.open(data, 'Aviso', {
         duration: 2000,
       });
     });
-
     this.usuarioService.listar().subscribe(data=>{
-      console.log(data);
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    });    
+    });
   }
 
   filtrar(event : Event){
     const filterValue = (event.target as HTMLInputElement).value;
-    
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  eliminar(usuario : Usuario){
-    this.usuarioService.eliminar(usuario.idUsuario).pipe(switchMap(() => {
+  eliminar(usuario : Usuario, estado : number){
+    this.usuarioService.eliminar(usuario.idUsuario,estado).pipe(switchMap(() => {
       return this.usuarioService.listar();
     })).subscribe(data => {
       this.usuarioService.usuarioCambio.next(data);
-      this.usuarioService.mensajeCambio.next('Se eliminó');
+      if(estado === 0){
+        this.usuarioService.mensajeCambio.next('Se Inhabilitado');
+      }
+      else{
+        this.usuarioService.mensajeCambio.next('Se Habilito');
+      }
     });
-    /*this.usuarioService.eliminar(usuario.idUsuario).subscribe(data=>{
-      console.log("eliminado");
-    });*/
   }
-
-  
-
 }

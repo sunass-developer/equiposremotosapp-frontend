@@ -1,0 +1,30 @@
+<div class="example-container">
+  <mat-toolbar class="toolbar">
+    <span>Medición de calidad de agua</span>
+    <span class="example-spacer"></span>
+    <button mat-raised-button class="boton" (click)="login()">
+      <mat-icon>account_circle</mat-icon>
+      <span>Iniciar Sesion</span>
+    </button>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav-content>
+      <mat-sidenav-container class="example-container-mapa">
+        <mat-sidenav
+          #sidenav
+          mode="side"
+          opened
+          class="example-sidenav"
+          [fixedInViewport]="options.value.fixed"
+          [fixedTopGap]="options.value.top"
+          [fixedBottomGap]="options.value.bottom"
+        >
+          <app-ol-map></app-ol-map>
+          <div class="example-cuadro-indicadores">
+            <app-indicador></app-indicador>
+          </div>
+        </mat-sidenav>
+      </mat-sidenav-container>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

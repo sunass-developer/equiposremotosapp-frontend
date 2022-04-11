@@ -1,191 +1,101 @@
 <router-outlet></router-outlet>
-<button style="left:-5px"  mat-icon-button aria-label="arrow_right" *ngIf="mostrarcuadroIndicadores" (click)="ocultarCuadroIndicadores()">
-  <mat-icon style="color:#066EC8">play_circle</mat-icon>
-</button>
-<div class="cuadro_indicadores" [hidden]="route.children.length!==0" *ngIf="!mostrarcuadroIndicadores">
-    <div> 
-      <h3 class="titulo"><strong>Indicadores por estación</strong> </h3>
-      <button mat-icon-button aria-label="minimize" style="float: right;color:#066EC8" (click)="ocultarCuadroIndicadores()"> 
-        <mat-icon >arrow_left</mat-icon>
-      </button>
-    </div>
-    <div>
-      <span style="font-size: 10px;">Se muestran los indicadores(cloro, ph y temperatura) por cada estación. Cuando el <strong>valor del cloro es menor de 0.5 </strong> se pinta de color rojo caso contrario verde.</span>
-    </div>
-    <mat-grid-list [cols]="4" rowHeight="280px">
-      <mat-grid-tile *ngFor= "let e of estacionindicador1">
-        <table class="mat-elevation-z8 border-radio">
-          <tr class="cabecera-tabla">
-            <td colspan="2" class="border-radio">
-              <strong>{{e.nombre}} </strong> 
-              <div *ngIf="e.cloro<0.5" style="width: 20px;height:10px;background: red; display:inline-block; "></div>
-              <div *ngIf="e.cloro>=0.5" style="width: 20px;height:10px;background: green; display: inline-block;"></div>
-              <button style="display: inline-block;" mat-icon-button aria-label="gráfico" placeholder="ver gráfico" [routerLink]="['grafico',e.idestacion]" >
-                <mat-icon>show_chart</mat-icon>
+<div [hidden]="route.children.length !== 0">
+  <mat-toolbar>LISTADO DE ESTACIONES</mat-toolbar>
+  <div class="example-button-row">
+    <button
+      mat-raised-button
+      class="boton"
+      type="button"
+      style="float: right; margin-right: 20px; margin-top: 10px"
+      (click)="irEstacionNuevo()"
+    >
+      <mat-icon>add_circle</mat-icon>
+      Agregar Estación
+    </button>
+  </div>
+  <div style="width: 100%; overflow-x: scroll;">
+    <div class="example-container mat-elevation-z8">
+      <div class="example-header">
+        <mat-form-field>
+          <input
+            matInput
+            (keyup)="filtrar($event)"
+            placeholder="Buscar estación"
+          />
+        </mat-form-field>
+      </div>
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            NOMBRE
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.nombre }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="departamento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            DEPARTAMENTO
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.departamento }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="provincia">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            PROVINCIA
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.provincia }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="distrito">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            DISTRITO
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.distrito }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="estado">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            ESTADO
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <div *ngIf="row.estado">Habilitado</div>
+            <div *ngIf="!row.estado">Inhabilitado</div>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button 
+              type="button" 
+              mat-button color="primary" 
+              [routerLink]="['edicion', row.id]"
+            >
+              <mat-icon>mode_edit</mat-icon>
+            </button>
+            <div *ngIf="row.estado">
+              <button
+                type="button"
+                mat-button
+                color="primary"
+                (click)="eliminar(row, false)"
+                title="Inhabilitar"
+              >
+                <mat-icon>toggle_on</mat-icon>
               </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label class="texto-plomo">{{e.fecharegistro}}</label>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              Cloro : {{e.cloro}}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              Ph : {{e.ph}}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <label>Temperatura : {{e.temperatura}}</label>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">Caudal : {{e.caudal}}</label>
-              <hr style="height:0.5px;border-width:0;background-color:#E5E5E5;">
-            </td>
-          </tr>        
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">{{e.fecharegistrocorriente}}</label>
-            </td>
-          </tr>        
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">Corriente DC : {{e.corrientedc}}</label>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-            <label class="texto-plomo">Corriente AC : {{e.corrienteac}}</label>
-            </td>
-          </tr>
-        </table>
-      </mat-grid-tile>
-    </mat-grid-list>
-  
-    <mat-grid-list [cols]="4" rowHeight="280px">
-      <mat-grid-tile *ngFor= "let e of estacionindicador2">
-        <table class="mat-elevation-z8 border-radio">
-          <tr class="cabecera-tabla">
-            <td colspan="2" class="border-radio">
-              <strong>{{e.nombre}} </strong>
-              <div *ngIf="e.cloro<0.5" style="width: 20px;height:10px;background: red;display:inline-block;"></div>
-              <div *ngIf="e.cloro>=0.5" style="width: 20px;height:10px;background: green;display:inline-block;"></div>
-              <button style="display:inline-block;" mat-icon-button aria-label="gráfico" placeholder="ver gráfico" [routerLink]="['grafico',e.idestacion]" >
-                <mat-icon>show_chart</mat-icon>
-              </button> 
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">{{e.fecharegistro}}</label>  
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              Cloro : {{e.cloro}}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              Ph : {{e.ph}}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <label>Temperatura : {{e.temperatura}}</label>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">Caudal : {{e.caudal}}</label>
-              <hr style="height:0.5px;border-width:0;background-color:#E5E5E5;">
-            </td>
-          </tr>        
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">{{e.fecharegistrocorriente}}</label>
-            </td>
-          </tr>        
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">Corriente DC : {{e.corrientedc}}</label>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-            <label class="texto-plomo">Corriente AC : {{e.corrienteac}}</label>
-            </td>
-          </tr>
-        </table>
-      </mat-grid-tile>
-    </mat-grid-list>
-  
-    <mat-grid-list [cols]="4" rowHeight="280px">
-      <mat-grid-tile *ngFor= "let e of estacionindicador3">
-        <table class="mat-elevation-z8 border-radio">
-          <tr class="cabecera-tabla">
-            <td colspan="2"  class="border-radio">
-              <strong>{{e.nombre}} </strong>
-              <div *ngIf="e.cloro<0.5" style="width: 20px;height:10px;background: red;display:inline-block;"></div>
-              <div *ngIf="e.cloro>=0.5" style="width: 20px;height:10px;background: green;display:inline-block;"></div>
-              <button style="display:inline-block;" mat-icon-button aria-label="gráfico" placeholder="ver gráfico" [routerLink]="['grafico',e.idestacion]" >
-                <mat-icon>show_chart</mat-icon>
+            </div>
+            <div *ngIf="!row.estado">
+              <button
+                type="button"
+                mat-button
+                color="primary"
+                (click)="eliminar(row, true)"
+                title="Habilitar"
+              >
+                <mat-icon>toggle_off</mat-icon>
               </button>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">{{e.fecharegistro}}</label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Cloro : {{e.cloro}}
-            </td>
-            <td>
-                          
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              Ph : {{e.ph}}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <label>Temperatura : {{e.temperatura}}</label>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">Caudal : {{e.caudal}}</label>
-              <hr style="height:0.5px;border-width:0;background-color:#E5E5E5;">
-            </td>
-          </tr>        
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">{{e.fecharegistrocorriente}}</label>
-            </td>
-          </tr>        
-          <tr>
-            <td colspan="2">
-              <label class="texto-plomo">Corriente DC : {{e.corrientedc}}</label>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-            <label class="texto-plomo">Corriente AC : {{e.corrienteac}}</label>
-            </td>
-          </tr>
-        </table>
-      </mat-grid-tile>
-    </mat-grid-list>
+            </div>
+          </mat-cell>
+        </ng-container>  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>
+  </div>  
 </div>

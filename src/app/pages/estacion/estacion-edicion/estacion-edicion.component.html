@@ -1,0 +1,314 @@
+<mat-toolbar>FORMULARIO DE ESTACIONES</mat-toolbar>
+<form [formGroup]="form" (ngSubmit)="operar()" #frmEstacion="ngForm">
+  <div [hidden]="true">
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="id" formControlName="id" />
+    </mat-form-field>
+  </div>
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Datos de la Estación </mat-panel-title>
+      </mat-expansion-panel-header>
+      <!--<mat-grid-list cols="2" rowHeight="75px">
+        <mat-grid-tile>
+          <mat-form-field appearance="legacy" style="width: 90%">
+            <input
+              [(ngModel)]="nombre"
+              placeholder="Nombre de la estación"
+              matInput
+              formControlName="nombre"
+              required
+            />
+            <mat-error *ngIf="f.nombre.errors?.required"
+              >campo obligatorio</mat-error
+            >
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="legacy" style="width: 90%">
+            <mat-label>Departamento</mat-label>
+            <mat-select
+              [(value)]="departamentoSeleccionado"
+              required
+              (selectionChange)="buscarProvincias(departamentoSeleccionado)"
+            >
+              <mat-option>seleccione</mat-option>
+              <mat-option
+                #matOption
+                *ngFor="let d of departamentos"
+                [value]="d.id"
+                >{{ d.nombre }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="legacy" style="width: 90%">
+            <mat-label>Provincia</mat-label>
+            <mat-select
+              [(value)]="provinciaSeleccionada"
+              required
+              (selectionChange)="buscarDistritos(provinciaSeleccionada)"
+            >
+              <mat-option>Seleccione</mat-option>
+              <mat-option *ngFor="let p of provincias" [value]="p.id">{{
+                p.nombre
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="legacy" style="width: 90%">
+            <mat-label>Distrito</mat-label>
+            <mat-select
+              [(value)]="distritoSeleccionado"
+              formControlName="distrito"
+              required
+            >
+              <mat-option>seleccione</mat-option>
+              <mat-option *ngFor="let d of distritos" [value]="d.id">{{
+                d.nombre
+              }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f.distrito.errors?.required"
+              >campo obligatorio</mat-error
+            >
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width" style="width: 90%">
+            <mat-label>Dirección</mat-label>
+            <input
+              matInput
+              [(ngModel)]="direccion"
+              formControlName="direccion"
+              required
+            />
+            <mat-error *ngIf="f.direccion.errors?.required"
+              >campo obligatorio</mat-error
+            >
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="example-button-row" style="width: 90%">
+            <button
+              mat-button
+              color="primary"
+              type="button"
+              onclick="fichaArchivo.click()"
+            >
+              Seleccionar Ficha
+            </button>
+            <input
+              type="file"
+              #fichaArchivo
+              id="fichaArchivo"
+              hidden
+              (change)="selectFiles($event)"
+            />
+            <span *ngIf="fileName" style="padding-top: 12px; color: green">{{
+              fileName
+            }}</span>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>-->
+    
+      <div class="contenedor">
+        <div class="col-1 col-2">
+          <mat-form-field appearance="legacy">
+            <input [(ngModel)]="nombre" placeholder="Nombre de la estación" matInput formControlName="nombre" required/>
+            <mat-error *ngIf="f.nombre.errors?.required">campo obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+          <mat-form-field appearance="legacy">
+            <mat-label>Departamento</mat-label>
+            <mat-select [(value)]="departamentoSeleccionado" required (selectionChange)="buscarProvincias(departamentoSeleccionado)">
+              <mat-option>seleccione</mat-option>
+              <mat-option #matOption *ngFor="let d of departamentos" [value]="d.id">{{ d.nombre }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+          <mat-form-field appearance="legacy">
+            <mat-label>Provincia</mat-label>
+            <mat-select [(value)]="provinciaSeleccionada" required (selectionChange)="buscarDistritos(provinciaSeleccionada)">
+              <mat-option>Seleccione</mat-option>
+              <mat-option *ngFor="let p of provincias" [value]="p.id">{{p.nombre}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+          <mat-form-field appearance="legacy">
+            <mat-label>Distrito</mat-label>
+            <mat-select [(value)]="distritoSeleccionado" formControlName="distrito" required >
+              <mat-option>seleccione</mat-option>
+              <mat-option *ngFor="let d of distritos" [value]="d.id">{{d.nombre}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f.distrito.errors?.required">campo obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+          <mat-form-field appearance="legacy">
+            <mat-label>Distrito</mat-label>
+            <mat-select [(value)]="distritoSeleccionado" formControlName="distrito" required >
+              <mat-option>seleccione</mat-option>
+              <mat-option *ngFor="let d of distritos" [value]="d.id">{{d.nombre}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f.distrito.errors?.required">campo obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+          <mat-form-field class="example-full-width">
+            <mat-label>Dirección</mat-label>
+            <input matInput [(ngModel)]="direccion" formControlName="direccion" required/>
+            <mat-error *ngIf="f.direccion.errors?.required" >campo obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+        <div  class="col-1 col-2">
+          <div class="example-button-row" style="width: 90%">
+            <button mat-button color="primary" type="button" onclick="fichaArchivo.click()">Seleccionar Ficha</button>
+            <input type="file" #fichaArchivo id="fichaArchivo" hidden (change)="selectFiles($event)"/>
+            <span *ngIf="fileName" style="padding-top: 12px; color: green">{{fileName}}</span>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Ubicación de la Estación </mat-panel-title>
+        <mat-panel-description>
+          Debe arrastrar el punto de estación a la ubicación que pertenece
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="container" fxLayout="row" fxLayout.md="column" fxLayoutWrap fxLayoutGap="0.5%" >
+        <div id="mapa-estacion" class="mapa-estacion"></div> 
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Datos del Administrador </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="col-1 col-2">
+        <mat-form-field appearance="legacy">
+          <input matInput placeholder="Nombres" [(ngModel)]="nombreAdministrador" formControlName="nombreAdministrador" required />
+          <mat-error *ngIf="f.nombreAdministrador.errors?.required">campo obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-1 col-2">
+        <mat-form-field appearance="legacy">
+          <input placeholder="Apellidos" [(ngModel)]="apellidoAdministrador" formControlName="apellidoAdministrador" matInput required/>
+          <mat-error *ngIf="f.apellidoAdministrador.errors?.required">campo obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-1 col-2">
+        <mat-form-field appearance="legacy">
+          <input placeholder="Dni" [(ngModel)]="dniAdministrador" formControlName="dniAdministrador" matInput required/>
+          <mat-error *ngIf="f.dniAdministrador.errors?.required">campo obligatorio</mat-error>
+          <mat-error *ngIf="f.dniAdministrador.errors?.minlength">debe tener solo 8 digitos</mat-error>
+          <mat-error *ngIf="f.dniAdministrador.errors?.maxlength">debe tener solo 8 digitos</mat-error>
+          <mat-error *ngIf="f.dniAdministrador.errors?.pattern">debe tener solo números</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-1 col-2">
+        <mat-form-field appearance="legacy">
+          <input placeholder="Celular" [(ngModel)]="telefonoAdministrador" formControlName="telefonoAdministrador" matInput required/>
+          <mat-error *ngIf="f.telefonoAdministrador.errors?.required">campo obligatorio</mat-error>
+          <mat-error *ngIf="f.telefonoAdministrador.errors?.minlength">debe tener solo 9 digitos</mat-error>
+          <mat-error *ngIf="f.telefonoAdministrador.errors?.maxlength">debe tener solo digitos</mat-error>
+          <mat-error *ngIf="f.telefonoAdministrador.errors?.pattern">debe tener solo números</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-1 col-2">
+        <mat-form-field appearance="legacy">
+          <input placeholder="Correo" [(ngModel)]="correoAdministrador" formControlName="correoAdministrador" matInput required/>
+          <mat-error *ngIf="f.correoAdministrador.errors?.required">campo obligatorio</mat-error>
+          <mat-error *ngIf="f.correoAdministrador.errors?.email">correo incorrecto</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Datos del Operador(es) </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="col-1 col-2">
+        <mat-form-field appearance="legacy">
+          <input placeholder="Nombres" [(ngModel)]="nombreOperador" formControlName="nombreOperador" matInput />
+        </mat-form-field>
+      </div>
+      <div class="col-1 col-2">
+        <mat-form-field appearance="legacy">
+          <input placeholder="Apellidos" [(ngModel)]="apellidoOperador" formControlName="apellidoOperador" matInput />
+        </mat-form-field>
+      </div>
+      <div class="col-1 col-2">
+        <mat-form-field appearance="legacy">
+          <input placeholder="DNI" [(ngModel)]="dniOperador" formControlName="dniOperador" matInput />
+        </mat-form-field>
+      </div>
+      <div class="col-1 col-2">
+        <mat-form-field appearance="legacy">
+          <input placeholder="Celular" [(ngModel)]="telefonoOperador" formControlName="telefonoOperador" matInput />
+        </mat-form-field>
+      </div>
+      <div class="col-1 col-2">
+        &nbsp;
+      </div>
+      <div class="col-1 col-2">
+        <button mat-raised-button color="primary" type="button" (click)="agregarOperador()" class="btn-agregar-operador" >
+          <mat-icon>add_circle</mat-icon>
+          Agregar Operador
+        </button>
+      </div>
+      <div style="width: 100%; overflow-x: scroll;">
+        <div class="example-container mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+            </ng-container>
+            <ng-container matColumnDef="apellido">
+              <th mat-header-cell *matHeaderCellDef>Apellido</th>
+              <td mat-cell *matCellDef="let element">{{ element.apellido }}</td>
+            </ng-container>
+            <ng-container matColumnDef="dni">
+              <th mat-header-cell *matHeaderCellDef>DNI</th>
+              <td mat-cell *matCellDef="let element">{{ element.dni }}</td>
+            </ng-container>
+            <ng-container matColumnDef="telefono">
+              <th mat-header-cell *matHeaderCellDef>Celular</th>
+              <td mat-cell *matCellDef="let element">{{ element.telefono }}</td>
+            </ng-container>
+            <ng-container matColumnDef="accion">
+              <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-raised-button color="warn" type="button" (click)="removerOperador(element.dni)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <br />
+
+  <mat-grid-list cols="2" rowHeight="50px">
+    <mat-grid-tile>
+      <button mat-stroked-button class="boton-cancelar" (click)="listarEstaciones()" type="button" >
+        <span>Cancelar</span>
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button class="boton" type="submit" aria-label="Agregar" placeholder="Agregar" [disabled]="frmEstacion.invalid">
+        <span>Guardar</span>
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

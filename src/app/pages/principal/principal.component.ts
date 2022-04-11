@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ReportesComponent } from './../reportes/reportes.component';
 import { Menu } from './../../_model/menu';
-import { MenuService } from './../../_service/menu.service';
 
 @Component({
   selector: 'app-principal',
@@ -16,9 +13,7 @@ export class PrincipalComponent implements OnInit {
   menus  : Menu[] = [];
 
   constructor(
-    fb: FormBuilder,
-    /*public dialog: MatDialog,*/
-    private menuService : MenuService
+    fb: FormBuilder
   ) {
     this.options = fb.group({
       bottom: 0,
@@ -28,17 +23,6 @@ export class PrincipalComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*console.log("ngOnInit");
-    this.menuService.getMenuCambio().subscribe(data=>{
-      console.log("data ngOnInit => " + data);
-      this.menus = data;
-    });*/
   }
-
-  /*abrirDialogo(){
-    this.dialog.open(ReportesComponent,{
-      width : '70%'
-    });
-  }*/
 
 }
