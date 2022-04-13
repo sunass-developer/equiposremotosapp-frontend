@@ -43,25 +43,34 @@ export class LoginComponent implements OnInit {
       this.loginService.mensajeCambio.next("Ingrese usuario y/o contraseña");
       return;
     }
-    let usuarioLoginLdapDto = new UsuarioLoginLdapDto(this.usuario, this.clave);
-    let claveUsuario='';
-    this.loginService.loginLdap(usuarioLoginLdapDto).subscribe(data=>{
+    this.loginService.estadoUsuario(this.usuario).subscribe(data=>{
+      console.log(data);
       if(data){
-        claveUsuario ='123456';
-      } else{
-        claveUsuario = this.clave;
-      }
-      this.loginService.login(this.usuario,claveUsuario).pipe(concatMap(data=>{
-        sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
-        const helper = new JwtHelperService();//envía el token a todas la peticiones http, verifica si el token esta activo o ya expiro
-        let decodedToken = helper.decodeToken(data.access_token);
-        return this.menuService.listarPorUsuario(decodedToken.user_name);
-      })).subscribe(data=>{
-        this.menuService.setMenuCambio(data);
-        this.router.navigate(['principal']);
-      },error=>{
+        let usuarioLoginLdapDto = new UsuarioLoginLdapDto(this.usuario, this.clave);
+        let claveUsuario='';
+        this.loginService.loginLdap(usuarioLoginLdapDto).subscribe(data=>{
+          if(data){
+            claveUsuario ='123456';
+          } else{
+            claveUsuario = this.clave;
+          }
+          this.loginService.login(this.usuario,claveUsuario).pipe(concatMap(data=>{
+            sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
+            const helper = new JwtHelperService();//envía el token a todas la peticiones http, verifica si el token esta activo o ya expiro
+            let decodedToken = helper.decodeToken(data.access_token);
+            return this.menuService.listarPorUsuario(decodedToken.user_name);
+          })).subscribe(data=>{
+            this.menuService.setMenuCambio(data);
+            this.router.navigate(['principal']);
+          },error=>{
+            this.loginService.mensajeCambio.next("Usuario y/o contraseña incorrectos");
+          });
+        });
+      } else {
         this.loginService.mensajeCambio.next("Usuario y/o contraseña incorrectos");
-      });
+        return;
+      }
     });
+    
   }
 }

@@ -27,13 +27,13 @@
       <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="nombre">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
-            NOMBRE
+            NOMBRES
           </mat-header-cell>
           <mat-cell *matCellDef="let row"> {{ row.nombre }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="apellido">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
-            APELLIDO
+            APELLIDOS
           </mat-header-cell>
           <mat-cell *matCellDef="let row"> {{ row.apellido }} </mat-cell>
         </ng-container>
@@ -42,6 +42,12 @@
             USUARIO
           </mat-header-cell>
           <mat-cell *matCellDef="let row"> {{ row.username }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="celular">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            CELULAR
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.celular }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="estado">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -67,6 +73,12 @@
               {{ rol.nombre }}
             </div>
           </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ubicacion">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            UBICACIÓN
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.ubicacion }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="acciones">
           <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>

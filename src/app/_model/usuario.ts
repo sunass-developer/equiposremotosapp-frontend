@@ -11,5 +11,7 @@ export class Usuario {
     password : string;
     correo : string;
     enabled : boolean;
+    celular : string;
+    ubicacion : string;
     roles : Rol[];
 }

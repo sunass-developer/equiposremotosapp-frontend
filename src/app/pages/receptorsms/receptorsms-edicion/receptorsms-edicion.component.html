@@ -8,6 +8,12 @@
         </div>
         <div class="col-1 col-2">
             <mat-form-field appearance="legacy">
+                <input matInput placeholder="Nombres" formControlName="nombre" required>
+                <mat-error *ngIf="f.nombre.errors?.required">campo obligatorio</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+            <mat-form-field appearance="legacy">
                 <input matInput placeholder="Apellidos" formControlName="apellido" required>
                 <mat-error *ngIf="f.apellido.errors?.required">campo obligatorio</mat-error>
             </mat-form-field>
@@ -46,6 +52,8 @@
                 <input matInput placeholder="Correo" formControlName="correo" required>
                 <mat-error *ngIf="f.correo.errors?.required">campo obligatorio</mat-error>
                 <mat-error *ngIf="f.correo.errors?.email">correo incorrecto</mat-error>
+                <mat-error *ngIf="f.correo.errors?.minlength">debe tener mínimo 4 digitos</mat-error>
+                <mat-error *ngIf="f.correo.errors?.maxlength">debe tener máximo 150 digitos</mat-error>
             </mat-form-field>
         </div>
         <div class="col-1 col-2">

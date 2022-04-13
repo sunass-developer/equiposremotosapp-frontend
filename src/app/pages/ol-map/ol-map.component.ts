@@ -91,12 +91,12 @@ export class OlMapComponent implements OnInit {
               id : objeto.id,
               geometry: new Point([Number(objeto.coordx), Number(objeto.coordy)]),
               name: objeto.nombre,
-              did: objeto.did,
-              chip: objeto.chip,
+              /*did: objeto.did,
+              chip: objeto.chip,*/
               departamento: objeto.distrito.provincia.departamento.nombre,
               provincia: objeto.distrito.provincia.nombre,
-              distrito: objeto.distrito.nombre,
-              direccion: objeto.direccion
+              distrito: objeto.distrito.nombre/*,
+              direccion: objeto.direccion*/
             })
           );
         });
@@ -203,20 +203,14 @@ export class OlMapComponent implements OnInit {
               `<strong>` +
                 `Datos de Estacion` +
                 `</strong>` +
-                `<br>Did : ` +
-                feature.get('did') +
                 `<br>Nombre : ` +
                 feature.get('name') +
-                `<br>Chip : ` +
-                feature.get('chip') +
                 `<br>Departamento : ` +
                 feature.get('departamento') +
                 `<br>Provincia : ` +
                 feature.get('provincia') +
                 `<br>Distrito : ` +
                 feature.get('distrito') +
-                `<br>Dirección : ` +
-                feature.get('direccion') +
                 `<br>`/*+
                 `<a Target="_blank" href="#/inicio/fichadescriptiva/`+feature.get('id')+`">descargar ficha descriptiva</a>`*/
             );

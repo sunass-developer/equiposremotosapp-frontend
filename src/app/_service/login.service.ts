@@ -11,7 +11,8 @@ import { UsuarioLoginLdapDto } from './../_dto/usuarioLoginLdapDto';
 export class LoginService {
 
   url: string = `${environment.HOST}/oauth/token`;
-  urlLdap: string = `${environment.HOST}/login/usuariologinldap`
+  urlLdap: string = `${environment.HOST}/login/usuariologinldap`;
+  urlLogin: string = `${environment.HOST}/login`
   mensajeCambio = new Subject<string>();
   rptaLogin : number;
 
@@ -33,6 +34,10 @@ export class LoginService {
                                     'Basic ' + btoa(environment.TOKEN_AUTH_USERNAME + ':' + environment.TOKEN_AUTH_PASSWORD)
                                   )
     });
+  }
+
+  estadoUsuario(usuario:string){
+    return this.http.get(`${this.urlLogin}/estadousuario/${usuario}`);
   }
 
   estaLogeado(){

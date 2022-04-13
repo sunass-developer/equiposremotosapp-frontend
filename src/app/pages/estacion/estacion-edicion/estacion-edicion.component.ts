@@ -49,6 +49,7 @@ export class EstacionEdicionComponent implements OnInit {
   provinciaSeleccionada: string;
   distritoSeleccionado: string;
   direccion: string;
+  localidad : string;
   nombreAdministrador: string;
   apellidoAdministrador: string;
   dniAdministrador: string;
@@ -143,22 +144,27 @@ export class EstacionEdicionComponent implements OnInit {
       id: new FormControl(0),
       nombre: new FormControl('', [
         Validators.required,
-        Validators.minLength(4),
+        Validators.minLength(3),
         Validators.maxLength(150),
       ]),
       direccion: new FormControl('', [
         Validators.required,
-        Validators.minLength(4),
+        Validators.minLength(3),
+        Validators.maxLength(250),
+      ]),
+      localidad: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
         Validators.maxLength(250),
       ]),
       nombreAdministrador: new FormControl('', [
         Validators.required,
-        Validators.minLength(4),
+        Validators.minLength(3),
         Validators.maxLength(150),
       ]),
       apellidoAdministrador: new FormControl('', [
         Validators.required,
-        Validators.minLength(4),
+        Validators.minLength(3),
         Validators.maxLength(150),
       ]),
       dniAdministrador: new FormControl('', [
@@ -211,6 +217,7 @@ export class EstacionEdicionComponent implements OnInit {
             let id = data.id;
             let nombre = data.nombre;
             let direccion = data.direccion;
+            let localidad = data.localidad;
             let nombreAdministrador = data.nombreadministrador;
             let apellidoAdministrador = data.apellidoadministrador;
             let dniAdministrador = data.dniadministrador;
@@ -235,22 +242,27 @@ export class EstacionEdicionComponent implements OnInit {
               id: new FormControl(id),
               nombre: new FormControl(nombre, [
                 Validators.required,
-                Validators.minLength(4),
+                Validators.minLength(3),
                 Validators.maxLength(150),
               ]),
               direccion: new FormControl(direccion, [
                 Validators.required,
-                Validators.minLength(4),
+                Validators.minLength(3),
+                Validators.maxLength(250),
+              ]),
+              localidad: new FormControl(localidad, [
+                Validators.required,
+                Validators.minLength(3),
                 Validators.maxLength(250),
               ]),
               nombreAdministrador: new FormControl(nombreAdministrador, [
                 Validators.required,
-                Validators.minLength(4),
+                Validators.minLength(3),
                 Validators.maxLength(150),
               ]),
               apellidoAdministrador: new FormControl(apellidoAdministrador, [
                 Validators.required,
-                Validators.minLength(4),
+                Validators.minLength(3),
                 Validators.maxLength(150),
               ]),
               dniAdministrador: new FormControl(dniAdministrador, [
@@ -312,12 +324,12 @@ export class EstacionEdicionComponent implements OnInit {
   }
 
   operar() {
-    if (this.selectedFiles == undefined && this.fileName == '') {
+    /*if (this.selectedFiles == undefined && this.fileName == '') {
       this.snackBar.open('Aviso', 'falta adjuntar ficha descriptiva', {
         duration: 3000,
       });
       return;
-    }
+    }*/
     if (this.operadoresSeleccionados.length == 0) {
       this.snackBar.open('Aviso', 'Debe agregar al menos 1 operador', {
         duration: 3000,
@@ -326,16 +338,13 @@ export class EstacionEdicionComponent implements OnInit {
     }
     if (this.form.invalid) return;
 
-    let coordenada = this.iconFeature
-      .getGeometry()
-      .getCoordinates()
-      .toString()
-      .split(',');
+    let coordenada = this.iconFeature.getGeometry().getCoordinates().toString().split(',');
     this.coordx = coordenada[0];
     this.coordy = coordenada[1];
     this.estacion.id = this.form.value['id'];
     this.estacion.nombre = this.form.value['nombre'];
     this.estacion.direccion = this.form.value['direccion'];
+    this.estacion.localidad = this.form.value['localidad'];
     this.estacion.did = '';
     this.estacion.coordx = this.coordx;
     this.estacion.coordy = this.coordy;
@@ -381,6 +390,11 @@ export class EstacionEdicionComponent implements OnInit {
             this.estacionService
               .modificar(this.estacion)
               .pipe(
+                concatMap((data)=>{
+                  return this.UploadFilesService.crearDirectorio(Number(data));
+                })
+              )
+              .pipe(
                 concatMap(() => {
                   return this.estacionService.listar();
                 })
@@ -400,6 +414,7 @@ export class EstacionEdicionComponent implements OnInit {
           this.estacion.id = null;
           this.estacion.nombre = this.form.value['nombre'];
           this.estacion.direccion = this.form.value['direccion'];
+          this.estacion.localidad = this.form.value['localidad'];
           this.estacion.did = '';
           this.estacion.coordx = this.coordx;
           this.estacion.coordy = this.coordy;
@@ -414,33 +429,60 @@ export class EstacionEdicionComponent implements OnInit {
           this.estacion.distrito = data;
           this.estacion.operadores = this.operadoresSeleccionados;
           let estacionfiledto = new EstacionFileDto();
-          estacionfiledto.estacion = this.estacion;
-          estacionfiledto.file = this.selectedFiles;
-          this.estacionService
-            .registrar(this.estacion)
-            .pipe(
-              map((data) => {
-                return data;
-              })
-            )
-            .pipe(
-              map((data) => {
-                this.UploadFilesService.upload(
-                  this.selectedFiles[0],
-                  Number(data)
-                ).subscribe();
-              })
-            )
-            .pipe(
-              switchMap(() => {
-                return this.estacionService.listar();
-              })
-            )
-            .subscribe((data) => {
-              this.estacionService.estacionCambio.next(data);
-              this.estacionService.mensajeCambio.next('Se registro');
-              this.limpiarControles();
-            });
+
+          if (this.selectedFiles != undefined) {
+            estacionfiledto.estacion = this.estacion;
+            estacionfiledto.file = this.selectedFiles;
+            this.estacionService
+              .registrar(this.estacion)
+              .pipe(
+                map((data) => {
+                  return data;
+                })
+              )
+              .pipe(
+                map((data) => {
+                  this.UploadFilesService.upload(
+                    this.selectedFiles[0],
+                    Number(data)
+                  ).subscribe();
+                })
+              )
+              .pipe(
+                switchMap(() => {
+                  return this.estacionService.listar();
+                })
+              )
+              .subscribe((data) => {
+                this.estacionService.estacionCambio.next(data);
+                this.estacionService.mensajeCambio.next('Se registro');
+                this.limpiarControles();
+              });
+          } else {
+            estacionfiledto.estacion = this.estacion;
+            estacionfiledto.file = this.selectedFiles;
+            this.estacionService
+              .registrar(this.estacion)
+              .pipe(
+                map((data) => {
+                  return data;
+                })
+              ).pipe(
+                concatMap((data)=>{
+                  return this.UploadFilesService.crearDirectorio(Number(data));
+                })
+              )
+              .pipe(
+                switchMap(() => {
+                  return this.estacionService.listar();
+                })
+              )
+              .subscribe((data) => {
+                this.estacionService.estacionCambio.next(data);
+                this.estacionService.mensajeCambio.next('Se registro');
+                this.limpiarControles();
+              });
+          }
         });
     }
     this.router.navigate(['estacion']);
@@ -513,6 +555,7 @@ export class EstacionEdicionComponent implements OnInit {
     this.provinciaSeleccionada = '';
     this.distritoSeleccionado = '';
     this.direccion = '';
+    this.localidad = '';
     this.nombreAdministrador = '';
     this.apellidoAdministrador = '';
     this.dniAdministrador = '';

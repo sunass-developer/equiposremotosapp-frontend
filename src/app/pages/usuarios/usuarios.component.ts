@@ -19,7 +19,7 @@ import { UsuarioItemDto } from './../../_dto/UsuarioItemDto';
 })
 export class UsuariosComponent implements OnInit {
 
-  displayedColumns = ['nombre', 'apellido', 'username','cargo','rol','estado','acciones'];
+  displayedColumns = ['nombre', 'apellido', 'username','celular','cargo','rol','ubicacion','estado','acciones'];
   dataSource: MatTableDataSource<Usuario>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

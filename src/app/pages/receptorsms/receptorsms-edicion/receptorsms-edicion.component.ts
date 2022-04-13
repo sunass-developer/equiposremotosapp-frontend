@@ -39,9 +39,9 @@ export class ReceptorsmsEdicionComponent implements OnInit {
     });
     this.form = new FormGroup({
       'id' : new FormControl(0),
-      'nombre' : new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
-      'apellido' : new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
-      'cargo' : new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
+      'nombre' : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
+      'apellido' : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
+      'cargo' : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
       'entidad' : new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
       'dni' : new FormControl('',[Validators.minLength(8), Validators.maxLength(8)]),
       'celular' : new FormControl('',[Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('^((\\9-?)|0)?[0-9]{9}$')]),
@@ -67,9 +67,9 @@ export class ReceptorsmsEdicionComponent implements OnInit {
         let celular = data.celular;
         let correo = data.correo;
         this.form = new FormGroup({
-          'id' : new FormControl(0),
-          'nombre' : new FormControl(id,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
-          'apellido' : new FormControl(nombre,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
+          'id' : new FormControl(id),
+          'nombre' : new FormControl(nombre,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
+          'apellido' : new FormControl(apellido,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
           'cargo' : new FormControl(cargo,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
           'entidad' : new FormControl(entidad,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
           'dni' : new FormControl(dni,[Validators.minLength(8), Validators.maxLength(8)]),

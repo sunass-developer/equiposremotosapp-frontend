@@ -37,6 +37,10 @@ export class UploadFilesService {
     return this.http.request(req);
   }
 
+  crearDirectorio(id:number){
+    return this.http.get(`${this.url}/creardirectorio/${id}`);
+  }
+
    //Metodo para Obtener los archivos
   getFiles(id  : number){
     return this.http.get<ArchivoDto>(`${this.url}/upload/${id}`);

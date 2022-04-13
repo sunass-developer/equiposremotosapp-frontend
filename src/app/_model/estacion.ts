@@ -10,6 +10,7 @@ export class Estacion {
   chip : string;
   orden : number;
   direccion : string;
+  localidad : string;
   nombreadministrador : string;
   apellidoadministrador : string;
   dniadministrador : string;
