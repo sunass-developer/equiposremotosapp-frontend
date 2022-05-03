@@ -16,7 +16,7 @@ import { CombineLatestOperator } from 'rxjs/internal/observable/combineLatest';
 })
 export class ReceptorsmsComponent implements OnInit {
 
-  displayedColumns = ['nombre','apellido','cargo','entidad','dni','celular','correo','estado','acciones'];
+  displayedColumns = ['nombres','apellidos','cargo','entidad','dni','celular','correo','nombre','estado','acciones'];
   dataSource: MatTableDataSource<ReceptorSms>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -40,6 +40,7 @@ export class ReceptorsmsComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
     this.receptorsmsService.listar().subscribe(data=>{
+      console.log(data);
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

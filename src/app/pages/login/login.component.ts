@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
         let claveUsuario='';
         this.loginService.loginLdap(usuarioLoginLdapDto).subscribe(data=>{
           if(data){
-            claveUsuario ='123456';
+            claveUsuario =this.usuario;
           } else{
             claveUsuario = this.clave;
           }

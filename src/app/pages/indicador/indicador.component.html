@@ -60,7 +60,7 @@
               </button>
             </td>
           </tr>
-          <tr>
+          <tr *ngIf="logeado">
             <td>
               <label class="texto-plomo">{{ e.fecharegistro }}</label>
             </td>
@@ -76,7 +76,7 @@
               <label>Temperatura : {{ e.temperatura }}</label>
             </td>
           </tr>
-          <tr>
+          <tr *ngIf="logeado">
             <td colspan="2">
               <label class="texto-plomo">Caudal : {{ e.caudal }}</label>
               <hr
@@ -88,19 +88,19 @@
               />
             </td>
           </tr>
-          <tr>
+          <tr *ngIf="logeado">
             <td colspan="2">
               <label class="texto-plomo">{{ e.fecharegistrocorriente }}</label>
             </td>
           </tr>
-          <tr>
+          <tr *ngIf="logeado">
             <td colspan="2">
               <label class="texto-plomo"
                 >Corriente DC : {{ e.corrientedc }}</label
               >
             </td>
           </tr>
-          <tr>
+          <tr *ngIf="logeado">
             <td colspan="2">
               <label class="texto-plomo"
                 >Corriente AC : {{ e.corrienteac }}</label

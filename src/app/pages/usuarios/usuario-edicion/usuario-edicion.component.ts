@@ -38,8 +38,8 @@ export class UsuarioEdicionComponent implements OnInit {
     });
     this.form = new FormGroup({
       'id' : new FormControl(0),
-      'nombre' : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
-      'apellido' : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
+      'nombre' : new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
+      'apellido' : new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
       'cargo' : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
       'tipousuario' : new FormControl('',Validators.required),
       'correo' : new FormControl('',[Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(150)]),

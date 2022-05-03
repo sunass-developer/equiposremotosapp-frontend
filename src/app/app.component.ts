@@ -47,7 +47,7 @@ export class AppComponent implements OnInit{
       case 'Usuarios' :
         this.router.navigate(['usuarios']);
         break;
-      case 'Estacion' : 
+      case 'Estación' : 
         this.router.navigate(['estacion']);
         break;
       case 'Receptores SMS' : 

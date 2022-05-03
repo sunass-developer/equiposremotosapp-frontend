@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EstacionIndicador } from 'src/app/_model/estacionindicador';
 import { EstacionService } from 'src/app/_service/estacion.service';
+import { LoginService } from './../../_service/login.service';
 
 @Component({
   selector: 'app-indicador',
@@ -16,10 +17,13 @@ export class IndicadorComponent implements OnInit {
   estacionindicador3: EstacionIndicador[] = new Array();
   estacionindicador4: EstacionIndicador[] = new Array();
   mostrarcuadroIndicadores: boolean = false;
+  logeado : boolean;
+  //altoTabla : string = '200px';
   //mostrarCuartoCuadroIndicadores: boolean = false;
 
   constructor(
     private estacionService: EstacionService,
+    private loginService : LoginService,
     public route: ActivatedRoute
   ) {
     /*var evtSource = new EventSource("http://localhost:8080/estaciones/indicadores");
@@ -29,6 +33,10 @@ export class IndicadorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.logeado = this.loginService.estaLogeado();
+    /*if(this.logeado){
+      this.altoTabla = '250px';
+    }*/
     this.estacionindicador1 = [];
     this.estacionindicador2 = [];
     this.estacionindicador3 = [];

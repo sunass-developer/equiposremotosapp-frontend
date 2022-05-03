@@ -50,7 +50,7 @@ export class IndicadorGraficoComponent implements OnInit {
           labels: fecharegistro,
           datasets: [
             {
-              label: 'Cloro',
+              label: 'Cloro residual libre: MgL',
               data: cloro,
               borderColor: "#5883FF",
               fill: false,
@@ -64,7 +64,7 @@ export class IndicadorGraficoComponent implements OnInit {
               ]
             },
             {
-              label: 'PH',
+              label: 'Alcalinidad: pH',
               data: ph,
               borderColor: "#3cba9f",
               fill: false,
@@ -79,7 +79,7 @@ export class IndicadorGraficoComponent implements OnInit {
             }
             ,
             {
-              label: 'Temperatura',
+              label: 'Temperatura: °C',
               data: temperatura,
               borderColor: "yellow",
               fill: false,

@@ -159,12 +159,12 @@ export class EstacionEdicionComponent implements OnInit {
       ]),
       nombreAdministrador: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(2),
         Validators.maxLength(150),
       ]),
       apellidoAdministrador: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(2),
         Validators.maxLength(150),
       ]),
       dniAdministrador: new FormControl('', [
@@ -242,7 +242,7 @@ export class EstacionEdicionComponent implements OnInit {
               id: new FormControl(id),
               nombre: new FormControl(nombre, [
                 Validators.required,
-                Validators.minLength(3),
+                Validators.minLength(2),
                 Validators.maxLength(150),
               ]),
               direccion: new FormControl(direccion, [
@@ -257,12 +257,12 @@ export class EstacionEdicionComponent implements OnInit {
               ]),
               nombreAdministrador: new FormControl(nombreAdministrador, [
                 Validators.required,
-                Validators.minLength(3),
+                Validators.minLength(2),
                 Validators.maxLength(150),
               ]),
               apellidoAdministrador: new FormControl(apellidoAdministrador, [
                 Validators.required,
-                Validators.minLength(3),
+                Validators.minLength(2),
                 Validators.maxLength(150),
               ]),
               dniAdministrador: new FormControl(dniAdministrador, [
@@ -527,10 +527,8 @@ export class EstacionEdicionComponent implements OnInit {
     operador.dni = this.form.value['dniOperador'];
     operador.nombre = this.form.value['nombreOperador'];
     operador.telefono = this.form.value['telefonoOperador'];
-
     this.operadoresSeleccionados.push(operador);
     this.dataSource = new MatTableDataSource(this.operadoresSeleccionados);
-
     this.nombreOperador = '';
     this.apellidoOperador = '';
     this.dniOperador = '';

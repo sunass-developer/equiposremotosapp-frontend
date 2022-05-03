@@ -39,8 +39,8 @@ export class ReceptorsmsEdicionComponent implements OnInit {
     });
     this.form = new FormGroup({
       'id' : new FormControl(0),
-      'nombre' : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
-      'apellido' : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
+      'nombre' : new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
+      'apellido' : new FormControl('',[Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
       'cargo' : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
       'entidad' : new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
       'dni' : new FormControl('',[Validators.minLength(8), Validators.maxLength(8)]),
@@ -68,8 +68,8 @@ export class ReceptorsmsEdicionComponent implements OnInit {
         let correo = data.correo;
         this.form = new FormGroup({
           'id' : new FormControl(id),
-          'nombre' : new FormControl(nombre,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
-          'apellido' : new FormControl(apellido,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
+          'nombre' : new FormControl(nombre,[Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
+          'apellido' : new FormControl(apellido,[Validators.required, Validators.minLength(2), Validators.maxLength(150)]),
           'cargo' : new FormControl(cargo,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
           'entidad' : new FormControl(entidad,[Validators.required, Validators.minLength(4), Validators.maxLength(150)]),
           'dni' : new FormControl(dni,[Validators.minLength(8), Validators.maxLength(8)]),

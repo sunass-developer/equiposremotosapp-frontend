@@ -54,7 +54,7 @@
         </div>
         <div class="col-1 col-2">
           <mat-form-field class="example-full-width">
-            <mat-label>Localidad</mat-label>
+            <mat-label>Centro poblado</mat-label>
             <input matInput [(ngModel)]="localidad" formControlName="localidad" required/>
             <mat-error *ngIf="f.localidad.errors?.required" >campo obligatorio</mat-error>
           </mat-form-field>
@@ -97,7 +97,7 @@
       </div>
       <div class="col-1 col-2">
         <mat-form-field appearance="legacy">
-          <input placeholder="Dni" [(ngModel)]="dniAdministrador" formControlName="dniAdministrador" matInput required/>
+          <input placeholder="DNI" [(ngModel)]="dniAdministrador" formControlName="dniAdministrador" matInput required/>
           <mat-error *ngIf="f.dniAdministrador.errors?.required">campo obligatorio</mat-error>
           <mat-error *ngIf="f.dniAdministrador.errors?.minlength">debe tener solo 8 digitos</mat-error>
           <mat-error *ngIf="f.dniAdministrador.errors?.maxlength">debe tener solo 8 digitos</mat-error>
@@ -158,11 +158,11 @@
         <div class="example-container mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <th mat-header-cell *matHeaderCellDef>Nombres</th>
               <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
             </ng-container>
             <ng-container matColumnDef="apellido">
-              <th mat-header-cell *matHeaderCellDef>Apellido</th>
+              <th mat-header-cell *matHeaderCellDef>Apellidos</th>
               <td mat-cell *matCellDef="let element">{{ element.apellido }}</td>
             </ng-container>
             <ng-container matColumnDef="dni">

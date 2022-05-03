@@ -85,7 +85,7 @@
         </div>
         <div class="col-1 col-2">
             <mat-form-field appearance="legacy">
-                <input matInput placeholder="correo" formControlName="correo" required>
+                <input matInput placeholder="Correo" formControlName="correo" required>
                 <mat-error *ngIf="f.correo.errors?.required">campo obligatorio</mat-error>
                 <mat-error *ngIf="f.correo.errors?.email">correo incorrecto</mat-error>
                 <mat-error *ngIf="f.correo.errors?.minlength">debe tener mínimo 4 digitos</mat-error>
@@ -94,7 +94,7 @@
         </div>
         <div class="col-1 col-2">
             <mat-form-field appearance="legacy">
-                <input matInput placeholder="celular" formControlName="celular">
+                <input matInput placeholder="Celular" formControlName="celular">
             </mat-form-field>
         </div>
         <div class="col-1 col-2">
@@ -106,7 +106,7 @@
         </div>
         <div class="col-1 col-2">
             <mat-form-field appearance="legacy">
-                <mat-label>Roles</mat-label>
+                <mat-label>Rol</mat-label>
                 <mat-select [(value)]="idRol" formControlName="tipousuario" (selectionChange)="selectRol()" required>
                     <mat-option *ngFor="let r of roles" [value]="r.idRol">
                         {{r.nombre}}

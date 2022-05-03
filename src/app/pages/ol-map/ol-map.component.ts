@@ -164,7 +164,7 @@ export class OlMapComponent implements OnInit {
             this.overlay.setPosition(evt.coordinate);
             this.contenidoPopupContent = this.sanitized.bypassSecurityTrustHtml(
               `<strong>` +
-                `Datos de Estacion` +
+                `Datos de Estación` +
                 `</strong>` +
                 `<br>Did : ` +
                 feature.get('did') +
@@ -201,7 +201,7 @@ export class OlMapComponent implements OnInit {
             this.overlay.setPosition(evt.coordinate);
             this.contenidoPopupContent = this.sanitized.bypassSecurityTrustHtml(
               `<strong>` +
-                `Datos de Estacion` +
+                `Datos de Estación` +
                 `</strong>` +
                 `<br>Nombre : ` +
                 feature.get('name') +

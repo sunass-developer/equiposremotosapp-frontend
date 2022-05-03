@@ -26,13 +26,13 @@
           </mat-form-field>
         </div>
         <table mat-table [dataSource]="dataSource" matSort>
-          <ng-container matColumnDef="nombre">
+          <ng-container matColumnDef="nombres">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               NOMBRES
             </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{ row.nombre }} </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="apellido">
+          <ng-container matColumnDef="apellidos">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               APELLIDOS
             </mat-header-cell>
@@ -68,6 +68,14 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{ row.correo }} </mat-cell>
           </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              ESTACIÓN
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.estacion.nombre }} </mat-cell>
+          </ng-container>
+
           <ng-container matColumnDef="estado">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               ESTADO
