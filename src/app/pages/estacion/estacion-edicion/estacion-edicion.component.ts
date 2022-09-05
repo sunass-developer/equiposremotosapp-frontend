@@ -41,6 +41,7 @@ export class EstacionEdicionComponent implements OnInit {
   id: number = 0;
   form: FormGroup;
   nombre: string;
+  did : string;
   nombreArchivo: string;
   departamentos: Departamento[];
   provincias: Provincia[] = [];
@@ -147,6 +148,12 @@ export class EstacionEdicionComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(150),
       ]),
+      did: new FormControl('' , [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(8),
+        
+      ]),
       direccion: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -216,6 +223,7 @@ export class EstacionEdicionComponent implements OnInit {
           map((data) => {
             let id = data.id;
             let nombre = data.nombre;
+            this.did = data.did;
             let direccion = data.direccion;
             let localidad = data.localidad;
             let nombreAdministrador = data.nombreadministrador;
@@ -244,6 +252,11 @@ export class EstacionEdicionComponent implements OnInit {
                 Validators.required,
                 Validators.minLength(2),
                 Validators.maxLength(150),
+              ]),
+              did: new FormControl({value : this.did, disabled: true }, [
+                Validators.required,
+                Validators.minLength(3),
+                Validators.maxLength(10),
               ]),
               direccion: new FormControl(direccion, [
                 Validators.required,
@@ -337,28 +350,27 @@ export class EstacionEdicionComponent implements OnInit {
       return;
     }
     if (this.form.invalid) return;
-
+    //console.log(this.form);
     let coordenada = this.iconFeature.getGeometry().getCoordinates().toString().split(',');
     this.coordx = coordenada[0];
     this.coordy = coordenada[1];
     this.estacion.id = this.form.value['id'];
     this.estacion.nombre = this.form.value['nombre'];
+    this.estacion.did = this.did;
     this.estacion.direccion = this.form.value['direccion'];
     this.estacion.localidad = this.form.value['localidad'];
-    this.estacion.did = '';
     this.estacion.coordx = this.coordx;
     this.estacion.coordy = this.coordy;
     this.estacion.chip = '';
     this.estacion.orden = 0;
     this.estacion.nombreadministrador = this.form.value['nombreAdministrador'];
-    this.estacion.apellidoadministrador =
-      this.form.value['apellidoAdministrador'];
+    this.estacion.apellidoadministrador = this.form.value['apellidoAdministrador'];
     this.estacion.dniadministrador = this.form.value['dniAdministrador'];
-    this.estacion.telefonoadministrador =
-      this.form.value['telefonoAdministrador'];
+    this.estacion.telefonoadministrador = this.form.value['telefonoAdministrador'];
     this.estacion.correoadministrador = this.form.value['correoAdministrador'];
     this.estacion.estado = true;
     this.estacion.operadores = this.operadoresSeleccionados;
+    console.log(this.estacion);
     if (this.estacion != null && this.estacion.id > 0) {
       let distritoSeleccionado = this.form.value['distrito'];
       this.distritoService
@@ -366,6 +378,7 @@ export class EstacionEdicionComponent implements OnInit {
         .subscribe((data) => {
           this.estacion.distrito = data;
           if (this.selectedFiles != undefined) {
+            console.log(this.estacion);
             this.estacionService
               .modificar(this.estacion)
               .pipe(
@@ -413,9 +426,9 @@ export class EstacionEdicionComponent implements OnInit {
         .subscribe((data) => {
           this.estacion.id = null;
           this.estacion.nombre = this.form.value['nombre'];
+          this.estacion.did = this.form.value['did'];
           this.estacion.direccion = this.form.value['direccion'];
           this.estacion.localidad = this.form.value['localidad'];
-          this.estacion.did = '';
           this.estacion.coordx = this.coordx;
           this.estacion.coordy = this.coordy;
           this.estacion.chip = '';
@@ -429,7 +442,7 @@ export class EstacionEdicionComponent implements OnInit {
           this.estacion.distrito = data;
           this.estacion.operadores = this.operadoresSeleccionados;
           let estacionfiledto = new EstacionFileDto();
-
+          console.log(this.estacion);
           if (this.selectedFiles != undefined) {
             estacionfiledto.estacion = this.estacion;
             estacionfiledto.file = this.selectedFiles;
@@ -549,6 +562,7 @@ export class EstacionEdicionComponent implements OnInit {
   limpiarControles() {
     this.id = 0;
     this.nombre = '';
+    this.did = '';
     this.departamentoSeleccionado = '';
     this.provinciaSeleccionada = '';
     this.distritoSeleccionado = '';

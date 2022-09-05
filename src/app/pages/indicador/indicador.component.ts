@@ -18,6 +18,8 @@ export class IndicadorComponent implements OnInit {
   estacionindicador4: EstacionIndicador[] = new Array();
   mostrarcuadroIndicadores: boolean = false;
   logeado : boolean;
+  cargandoIndicadores : boolean = true;
+  llamandoServicioListarEstacionesIndicadores : boolean = true;
   //altoTabla : string = '200px';
   //mostrarCuartoCuadroIndicadores: boolean = false;
 
@@ -27,44 +29,22 @@ export class IndicadorComponent implements OnInit {
     public route: ActivatedRoute
   ) {
     /*var evtSource = new EventSource("http://localhost:8080/estaciones/indicadores");
-
-    evtSource.onmessage = (e) => {
-   }*/
+      evtSource.onmessage = (e) => {
+    }*/
   }
 
   ngOnInit(): void {
     this.logeado = this.loginService.estaLogeado();
-    /*if(this.logeado){
-      this.altoTabla = '250px';
-    }*/
     this.estacionindicador1 = [];
-    this.estacionindicador2 = [];
-    this.estacionindicador3 = [];
-    this.estacionindicador4 = [];
-    //this.mostrarCuartoCuadroIndicadores = false;
-
-    this.estacionService.
-      listarEstacionesIndicadores().
-      subscribe((datos) => {
-        /*this.estacionindicador1.push(datos[0]);
-        this.estacionindicador1.push(datos[1]);
-        this.estacionindicador1.push(datos[2]);
-        this.estacionindicador1.push(datos[3]);
-        this.estacionindicador2.push(datos[4]);
-        this.estacionindicador2.push(datos[5]);
-        this.estacionindicador3.push(datos[6]);
-        this.estacionindicador3.push(datos[7]);
-        this.estacionindicador3.push(datos[8]);
-        this.estacionindicador3.push(datos[9]);
-        for (let i = 10; i < datos.length; i++) {
-          this.mostrarCuartoCuadroIndicadores = true;
-          this.estacionindicador4.push(datos[i]);
-        }*/
-        for (let i = 0; i < datos.length; i++) {
-          //this.mostrarCuartoCuadroIndicadores = true;
-          this.estacionindicador1.push(datos[i]);
-        }
-      });
+    this.estacionService.listarEstacionesIndicadores().subscribe((datos) => {
+      
+      for (let i = 0; i < datos.length; i++) {
+        this.estacionindicador1.push(datos[i]);
+      }
+      this.cargandoIndicadores = false;
+    },
+    err => console.log('HTTP Error', err)
+    ,() => console.log('HTTP request completed.'));
   }
 
   ocultarCuadroIndicadores() {

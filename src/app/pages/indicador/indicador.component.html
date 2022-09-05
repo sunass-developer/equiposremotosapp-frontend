@@ -23,10 +23,13 @@
       &nbsp;&nbsp;&nbsp;Se muestran los indicadores(cloro, ph y temperatura) por cada estación. Cuando el <strong>valor del cloro es menor de 0.5 </strong> se pinta de color rojo caso contrario verde.
     </span>
   </div>
-  <div
-    *ngFor="let e of estacionindicador1" 
-    class="col-s-6 col-3 col-l-2" style="padding: 4px; display: inline-block; border-radius: 2px;"
-  >
+  <div *ngIf="cargandoIndicadores">
+    <div class="centrarSpinner">
+      <mat-spinner></mat-spinner>
+    </div>
+    <h4 style="text-align: center;">Cargando...</h4>
+  </div>
+  <div *ngFor="let e of estacionindicador1" class="col-s-6 col-3 col-l-2" style="padding: 4px; display: inline-block; border-radius: 2px;">
         <table class="mat-elevation-z8  border-radio">
           <tr class="cabecera-tabla">
             <td colspan="2">
