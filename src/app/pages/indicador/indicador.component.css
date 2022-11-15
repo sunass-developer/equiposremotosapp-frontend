@@ -24,6 +24,13 @@ table{
     background: white;
   }
 
+.centrarSpinner{
+    height: 200px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* For mobile phones: */
 [class*="col-"] {
   width: 100%;

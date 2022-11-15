@@ -21,6 +21,8 @@ export class IndicadorComponent implements OnInit {
   mostrarcuadroIndicadores: boolean = false;
   logeado : boolean;
   cargandoSpinner : boolean = true;
+  cargandoIndicadores : boolean = true;
+  llamandoServicioListarEstacionesIndicadores : boolean = true;
   //altoTabla : string = '200px';
   //mostrarCuartoCuadroIndicadores: boolean = false;
 
@@ -34,17 +36,13 @@ export class IndicadorComponent implements OnInit {
     public route: ActivatedRoute
   ) {
     /*var evtSource = new EventSource("http://localhost:8080/estaciones/indicadores");
-
-    evtSource.onmessage = (e) => {
-   }*/
+      evtSource.onmessage = (e) => {
+    }*/
   }
 
   ngOnInit(): void {
     this.logeado = this.loginService.estaLogeado();
     this.estacionindicador1 = [];
-    this.estacionindicador2 = [];
-    this.estacionindicador3 = [];
-    this.estacionindicador4 = [];
 
     this.estacionService.
       listarEstacionesIndicadores().subscribe((datos) => {
@@ -53,6 +51,15 @@ export class IndicadorComponent implements OnInit {
         }
         this.cargandoSpinner = false;
       });
+    this.estacionService.listarEstacionesIndicadores().subscribe((datos) => {
+      
+      for (let i = 0; i < datos.length; i++) {
+        this.estacionindicador1.push(datos[i]);
+      }
+      this.cargandoIndicadores = false;
+    },
+    err => console.log('HTTP Error', err)
+    ,() => console.log('HTTP request completed.'));
   }
 
   ocultarCuadroIndicadores() {

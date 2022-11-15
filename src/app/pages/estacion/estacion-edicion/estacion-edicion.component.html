@@ -19,6 +19,12 @@
         </div>
         <div class="col-1 col-2">
           <mat-form-field appearance="legacy">
+            <input [(ngModel)]="did" placeholder="Codigo de la estación" matInput formControlName="did" required/>
+            <mat-error *ngIf="f.did.errors?.required">campo obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-1 col-2">
+          <mat-form-field appearance="legacy">
             <mat-label>Departamento</mat-label>
             <mat-select [(value)]="departamentoSeleccionado" required (selectionChange)="buscarProvincias(departamentoSeleccionado)">
               <mat-option>seleccione</mat-option>
