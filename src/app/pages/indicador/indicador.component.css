@@ -42,3 +42,15 @@ table{
   /* For desktop: */
   .col-l-2 {width: 15%;}
 }
+
+.spinner{
+  position: absolute;
+  left: 40%;
+  top: 40%;
+}
+
+.labelSpinner{
+  position: absolute;
+  left: 25%;
+  top: 55%;
+}

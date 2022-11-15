@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { EstacionIndicador } from 'src/app/_model/estacionindicador';
 import { EstacionService } from 'src/app/_service/estacion.service';
@@ -18,8 +20,13 @@ export class IndicadorComponent implements OnInit {
   estacionindicador4: EstacionIndicador[] = new Array();
   mostrarcuadroIndicadores: boolean = false;
   logeado : boolean;
+  cargandoSpinner : boolean = true;
   //altoTabla : string = '200px';
   //mostrarCuartoCuadroIndicadores: boolean = false;
+
+  color: ThemePalette = 'primary';
+  mode: MatProgressSpinnerModule = 'determinate';
+  value = 50;
 
   constructor(
     private estacionService: EstacionService,
@@ -34,36 +41,17 @@ export class IndicadorComponent implements OnInit {
 
   ngOnInit(): void {
     this.logeado = this.loginService.estaLogeado();
-    /*if(this.logeado){
-      this.altoTabla = '250px';
-    }*/
     this.estacionindicador1 = [];
     this.estacionindicador2 = [];
     this.estacionindicador3 = [];
     this.estacionindicador4 = [];
-    //this.mostrarCuartoCuadroIndicadores = false;
 
     this.estacionService.
-      listarEstacionesIndicadores().
-      subscribe((datos) => {
-        /*this.estacionindicador1.push(datos[0]);
-        this.estacionindicador1.push(datos[1]);
-        this.estacionindicador1.push(datos[2]);
-        this.estacionindicador1.push(datos[3]);
-        this.estacionindicador2.push(datos[4]);
-        this.estacionindicador2.push(datos[5]);
-        this.estacionindicador3.push(datos[6]);
-        this.estacionindicador3.push(datos[7]);
-        this.estacionindicador3.push(datos[8]);
-        this.estacionindicador3.push(datos[9]);
-        for (let i = 10; i < datos.length; i++) {
-          this.mostrarCuartoCuadroIndicadores = true;
-          this.estacionindicador4.push(datos[i]);
-        }*/
+      listarEstacionesIndicadores().subscribe((datos) => {
         for (let i = 0; i < datos.length; i++) {
-          //this.mostrarCuartoCuadroIndicadores = true;
           this.estacionindicador1.push(datos[i]);
         }
+        this.cargandoSpinner = false;
       });
   }
 
